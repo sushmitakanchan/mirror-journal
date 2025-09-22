@@ -1,26 +1,52 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './components/Layout'
 import Signup from './components/Signup';
 import Login from './components/Login';
 import History from './components/History';
 import NewEntry from './components/NewEntry';
 import EntryView from './components/EntryView';
+import AppLayout from './components/layout/AppLayout';
 
-function App() {
-  
 
-  return (
-  <Router>
-    <Routes>
-      <Route path='/' element={<Layout/>}/>
-      <Route path='/signup' element={<Signup/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/history' element={<History/>}/>
-      <Route path='/newEntry' element={<NewEntry/>}/>
-      <Route path='/entryView' element={<EntryView/>}/>
-    </Routes>
-  </Router>
-  )
-}
+  const router = createBrowserRouter([
+    {
+      path:"/",
+      element:<AppLayout />,
+      children:[
+        {
+          path:"/signup",
+          element:<Signup/>
+        },
+
+        {
+          path:"/login",
+          element:<Login/>
+        },
+
+        {
+          path:"/newEntry",
+          element:<NewEntry/>
+        },
+
+        {
+          path:"/entryView",
+          element:<EntryView/>
+        },
+
+                {
+          path:"/history",
+          element:<History/>
+        },
+      ]
+    },
+  ])
+
+  function App(){
+    return (
+      <RouterProvider router={router}/>
+    )
+  }
+
+
 
 export default App
