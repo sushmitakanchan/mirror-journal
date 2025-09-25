@@ -1,11 +1,11 @@
 import {createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/Layout'
-import Signup from './components/Signup';
-import Login from './components/Login';
 import History from './components/History';
 import NewEntry from './components/NewEntry';
 import EntryView from './components/EntryView';
 import AppLayout from './components/layout/AppLayout';
+import { SignIn, SignUp} from '@clerk/clerk-react';
+import Dashboard from './components/Dashboard';
+import Home from './components/Home';
 
 
   const router = createBrowserRouter([
@@ -13,14 +13,18 @@ import AppLayout from './components/layout/AppLayout';
       path:"/",
       element:<AppLayout />,
       children:[
+            {
+          path:"/",
+          element:<Home/>
+        },
         {
           path:"/signup",
-          element:<Signup/>
+          element:<SignUp/>
         },
 
         {
-          path:"/login",
-          element:<Login/>
+          path:"/signin",
+          element:<SignIn/>
         },
 
         {
@@ -37,6 +41,14 @@ import AppLayout from './components/layout/AppLayout';
           path:"/history",
           element:<History/>
         },
+                        {
+          path:"/dashboard",
+          element:<Dashboard/>
+        },
+        {
+          path:"/home",
+          element:<Home/>
+        }
       ]
     },
   ])

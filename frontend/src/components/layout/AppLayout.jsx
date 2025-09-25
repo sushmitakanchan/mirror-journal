@@ -8,7 +8,9 @@ const AppLayout = () => {
   return (
     <div className='w-screen h-screen bg-cover bg-center bg-no-repeat justify-center items-center' style={{ backgroundImage: `url(${bgImg})` }}>
       <Header/>
+      <div className='flex justify-center pt-5'>
       <Outlet/>
+      </div>
       <Footer/>
     </div>
   )
