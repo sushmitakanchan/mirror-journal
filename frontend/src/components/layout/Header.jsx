@@ -15,7 +15,7 @@ const Header = () => {
     </Link>
     <div className='flex items-center gap-4 text-black'>
       <SignedIn>
-      <Link href='/dashboard#collections'>
+      <Link to='/dashboard#collections'>
       <Button variant="outline" className="flex items-center gap-2">
         <FolderOpen size={18}/>
         <span className='hidden md:inline'>Collections</span>
@@ -23,7 +23,7 @@ const Header = () => {
       </Link>
       </SignedIn>
 
-      <Link href='/newEntry'>
+      <Link to='/newEntry'>
       <Button variant="journal" className="flex items-center gap-2">
         <SquarePen size={18}/>
         <span className='hidden md:inline'>Write New</span>
