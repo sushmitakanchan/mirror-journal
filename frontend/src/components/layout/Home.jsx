@@ -2,11 +2,11 @@ import React from 'react'
 import { Airplay, Book, Calendar, Lock, Sparkles } from 'lucide-react';
 import { Skeleton } from "@/components/ui/skeleton"
 import { Link } from 'react-router-dom';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {Card,CardContent} from "@/components/ui/card"
 import { LibraryBig } from 'lucide-react';
 import { FileText, BarChart2 } from 'lucide-react';
-import DailyPrompt from "@/components/DailyPrompt";
+import DailyPrompt from "@/components/layout/DailyPrompt";
 
 
 const Home = () => {

@@ -1,11 +1,11 @@
 "use client"
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { journalSchema } from "../lib/schema";
+import { journalSchema } from "../../lib/schema";
 import { Link } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 import { useForm, Controller } from "react-hook-form";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { MOODS } from "@/lib/moods";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
-
+import { Button } from "../ui/button";
 
 
 const NewEntry = () => {
@@ -97,7 +97,7 @@ const NewEntry = () => {
         </div>
 
         {/* Editor area: use Controller for `content` so `field` is available */}
-        <div className="text-black flex items-start mr-30 bg-orange-100 rounded-2xl p-4">
+        <div className="text-black flex items-start mr-30 bg-orange-100 shadow-xl rounded-2xl p-4">
           <Controller
             name="content"
             control={control}
@@ -114,10 +114,11 @@ const NewEntry = () => {
           />
         </div>
 
-        <div className="space-y-2">
-          <button type="submit" className="btn btn-primary">
-            Save
-          </button>
+        <div className="space-y-2 flex gap-2">
+            
+            <Button variant='journal' className='w-30'>Save</Button>
+            <Button variant='secondary'>Add to collection</Button>
+            
         </div>
       </form>
     </div>

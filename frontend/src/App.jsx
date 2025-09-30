@@ -1,11 +1,11 @@
 import {createBrowserRouter, RouterProvider } from 'react-router-dom';
-import History from './components/History';
-import NewEntry from './components/NewEntry';
-import EntryView from './components/EntryView';
+import History from './components/layout/History';
+import NewEntry from './components/layout/NewEntry';
+import EntryView from './components/layout/EntryView';
 import AppLayout from './components/layout/AppLayout';
 import { SignIn, SignUp} from '@clerk/clerk-react';
-import Dashboard from './components/Dashboard';
-import Home from './components/Home';
+import Dashboard from './components/layout/Dashboard';
+import Home from './components/layout/Home';
 
 
   const router = createBrowserRouter([

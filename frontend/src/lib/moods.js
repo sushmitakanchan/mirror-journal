@@ -270,3 +270,7 @@ export const MOODS = {
     pixabayQuery: "angry+storm+thunder",
   },
 };
+
+export const getMoodById = (moodId) => {
+  return MOODS[moodId?.toUpperCase()];
+};
