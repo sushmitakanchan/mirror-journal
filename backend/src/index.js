@@ -1,15 +1,17 @@
 import express from "express";
+
 import dotenv from "dotenv";
+dotenv.config();
+
 import cors from "cors";
-import { ClerkExpressRequireAuth } from "@clerk/clerk-sdk-node";
+import { clerkMiddleware, requireAuth } from "@clerk/express"; 
 import userRoutes from '../routes/user.routes.js';
 import entryRoutes from '../routes/entries.routes.js'
-dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
-
+app.use(clerkMiddleware());
 app.use(
     cors({
         origin:"https://localhost:3000",
@@ -20,10 +22,13 @@ app.use(
 )
 
 app.use('/users', userRoutes)
-app.use('/entries', ClerkExpressRequireAuth(), entryRoutes)
+app.use('/entries',  requireAuth(), entryRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`Server is running on ${PORT}`);
+    // console.log("CLERK_PUBLISHABLE_KEY:", !!process.env.CLERK_PUBLISHABLE_KEY);
+    // console.log("CLERK_SECRET_KEY:", !!process.env.CLERK_SECRET_KEY);
+
     
 })

@@ -28,7 +28,7 @@ export const syncUser = async(req, res)=>{
 
 export const getCurrentUser = async(req, res)=>{
     try {
-        const clerkUserId = req.auth.userId;
+        const clerkUserId = req.auth?.userId;
         const user = await prisma.user.findUnique({
             where:{clerkUserId},
             include:{entries:true},
