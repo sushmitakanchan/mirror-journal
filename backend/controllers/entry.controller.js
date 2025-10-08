@@ -26,12 +26,57 @@ export const getEntries = async(req, res)=>{
 
 // Create a new entry
 export const createEntry = async(req, res)=>{
+ try {
+       const clerkUserId = req.auth.userId;
+    const {title, content, imageUrl} = req.body;
+
+    const user = await prisma.user.findUnique({
+        where:{clerkUserId}
+    })
+    if(!user) return res.status(404).json({error: "User not found"});
     
+    const newEntry = await prisma.entry.create({
+        date:{
+            title,
+            content,
+            imageUrl,
+            userId: user.id
+        }
+    })
+    res.status(201).json(newEntry);
+ } catch (error) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to create entry" });
+ }
 }
 
 // Update an entry (only if it belongs to user)
 export const updateEntry = async(req, res)=>{
-    
+    try {
+        const clerkUserId = req.auth.userId;
+        const {id} = req.params;
+        const {title, content, imageUrl} = req.body;
+
+        const user = await prisma.user.findUnique({
+            where:{clerkUserId},
+        })
+
+        const entry = await prisma.entry.findUnique({
+            where:{id},
+        })
+
+        if(!entry || entry.userId !== user.id)
+             return res.status(403).json({ error: "Not authorized" });
+        
+        const updated = await prisma.entry.update({
+            where:{id},
+            date:{title, content, imageUrl},
+        })
+        res.json(updated);
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ error: "Failed to update entry" });
+    }
 }
 
 // Delete an entry
