@@ -3,7 +3,13 @@ const prisma = new PrismaClient();
 
 export const syncUser = async(req, res)=>{
     try {
-        const {clerkUserId, email, name, imageUrl} = req.body;
+        const clerkUserId = req.auth.userId;
+        const { email, name, imageUrl} = req.body;
+
+        if (!clerkUserId) {
+        return res.status(400).json({ error: "Missing clerkUserId from Clerk authentication" });
+        }
+
         //check if user exists in DB
         let user = await prisma.user.findUnique({
             where:{clerkUserId},
