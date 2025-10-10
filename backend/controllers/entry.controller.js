@@ -28,7 +28,7 @@ export const getEntries = async(req, res)=>{
 export const createEntry = async(req, res)=>{
  try {
        const clerkUserId = req.auth.userId;
-    const {title, content, imageUrl} = req.body;
+    const {title, content, mood, imageUrl} = req.body;
 
     const user = await prisma.user.findUnique({
         where:{clerkUserId}
@@ -39,6 +39,7 @@ export const createEntry = async(req, res)=>{
         date:{
             title,
             content,
+            mood,
             imageUrl,
             userId: user.id
         }
