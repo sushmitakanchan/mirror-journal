@@ -16,8 +16,11 @@ import {
 import { MOODS } from "@/lib/moods";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { Button } from "../ui/button";
+import { useAuth } from "@clerk/clerk-react";
+import { createEntryApi } from "@/lib/createEntryApi";
 
 
+const { getToken } = useAuth();
 const NewEntry = () => {
   const {
     register,
@@ -40,9 +43,22 @@ const NewEntry = () => {
   const selectedMoodId = watch("mood");
   const moodPrompt = selectedMoodId ? MOODS[selectedMoodId]?.prompt ?? "" : "";
 
-  const onSubmit = (data) => {
-    console.log("submit", data);
-    // save data...
+  const onSubmit = async (data) => {
+    // setIsLoading(true);
+    try{
+      const payload = {
+        title: data.title,
+        mood: data.mood,
+        content: data.content,
+        imageUrl: null
+      };
+      const created = await createEntryApi(payload, getToken);
+      console.log("Entry created", created);
+      
+    }
+    catch(error){
+      console.log(error);
+    }
   };
 
   return (
