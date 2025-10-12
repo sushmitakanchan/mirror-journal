@@ -36,7 +36,7 @@ export const createEntry = async(req, res)=>{
     if(!user) return res.status(404).json({error: "User not found"});
     
     const newEntry = await prisma.entry.create({
-        date:{
+        data:{
             title,
             content,
             mood,
@@ -45,8 +45,9 @@ export const createEntry = async(req, res)=>{
         }
     })
     res.status(201).json(newEntry);
+    console.log("createEntry body:", req.body, "req.auth:", req.auth);
  } catch (error) {
-    console.error(err);
+    console.error(error);
     res.status(500).json({ error: "Failed to create entry" });
  }
 }

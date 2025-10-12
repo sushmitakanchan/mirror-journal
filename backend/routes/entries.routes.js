@@ -4,7 +4,7 @@ import { getEntries, createEntry, updateEntry, deleteEntry } from '../controller
 const router = express.Router()
 
 router.get('/', getEntries);
-router.post('/', createEntry);
+router.post('/createEntry', createEntry);
 router.put('/:id', updateEntry);
 router.delete('/:id', deleteEntry);
 

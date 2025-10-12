@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(clerkMiddleware());
 app.use(
     cors({
-        origin:"https://localhost:3000",
+        origin:"http://localhost:5173",
         credentials:true,
         methods:['GET', 'POST', 'DELETE'],
         allowedHeaders:['Content-Type', 'Authorization']
@@ -22,7 +22,7 @@ app.use(
 )
 
 app.use('/users', userRoutes)
-app.use('/entries',  requireAuth(), entryRoutes)
+app.use('/entries', requireAuth(), entryRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{

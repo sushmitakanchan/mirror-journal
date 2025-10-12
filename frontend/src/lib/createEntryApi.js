@@ -1,10 +1,9 @@
-export async function createEntryApi(payload, getToken){
-    const token = getToken();
-    const res = await fetch('http://localhost/3000/entries', {
-        method: POST,
+export async function createEntryApi(payload, token){
+    const res = await fetch('http://localhost:3000/entries/createEntry', {
+        method: "POST",
         headers: {
-            "content-Type" : "application/json",
-            Authorization :`Bearer ${token}`,
+            "Content-Type" : "application/json",
+            "Authorization" :`Bearer ${token}`,
         },
         body: JSON.stringify(payload),
     });

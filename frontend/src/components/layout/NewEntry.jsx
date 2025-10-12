@@ -20,8 +20,9 @@ import { useAuth } from "@clerk/clerk-react";
 import { createEntryApi } from "@/lib/createEntryApi";
 
 
-const { getToken } = useAuth();
+
 const NewEntry = () => {
+  const { getToken } = useAuth();
   const {
     register,
     handleSubmit,
@@ -52,12 +53,15 @@ const NewEntry = () => {
         content: data.content,
         imageUrl: null
       };
-      const created = await createEntryApi(payload, getToken);
+      const token = await getToken({ skipCache: true });
+      console.log('JWT token', token);
+      
+      const created = await createEntryApi(payload, token);
       console.log("Entry created", created);
       
     }
     catch(error){
-      console.log(error);
+      console.log(error.message);
     }
   };
 
