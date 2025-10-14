@@ -16,13 +16,14 @@ import {
 import { MOODS } from "@/lib/moods";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { Button } from "../ui/button";
-import { useAuth } from "@clerk/clerk-react";
-import { createEntryApi } from "@/lib/createEntryApi";
-
+// import { useAuth } from "@clerk/clerk-react";
+import { useEntries } from "@/context/EntriesContext";
+import { toast } from "react-hot-toast";
 
 
 const NewEntry = () => {
-  const { getToken } = useAuth();
+  const {addEntry} = useEntries()
+  // const { getToken } = useAuth();
   const {
     register,
     handleSubmit,
@@ -53,11 +54,10 @@ const NewEntry = () => {
         content: data.content,
         imageUrl: null
       };
-      const token = await getToken({ skipCache: true });
-      console.log('JWT token', token);
       
-      const created = await createEntryApi(payload, token);
-      console.log("Entry created", created);
+      const saved = await addEntry(payload);
+      toast.success("Entry saved!", saved);
+
       
     }
     catch(error){

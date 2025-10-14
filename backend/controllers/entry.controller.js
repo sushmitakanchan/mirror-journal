@@ -14,7 +14,7 @@ export const getEntries = async(req, res)=>{
         
         const entries = await prisma.entry.findMany({
             where:{user:user.id},
-            orderBy:{createdAt:desc},
+            orderBy:{createdAt:"desc"},
         });
 
         res.json(entries)
