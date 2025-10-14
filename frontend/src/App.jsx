@@ -1,11 +1,11 @@
 import {createBrowserRouter, RouterProvider } from 'react-router-dom';
-import History from './components/layout/History';
 import NewEntry from './components/layout/NewEntry';
 import EntryView from './components/layout/EntryView';
 import AppLayout from './components/layout/AppLayout';
 import { SignIn, SignUp} from '@clerk/clerk-react';
 import Dashboard from './components/layout/Dashboard';
 import Home from './components/layout/Home';
+import Archives from './components/layout/Archives';
 
 
   const router = createBrowserRouter([
@@ -38,8 +38,8 @@ import Home from './components/layout/Home';
         },
 
                 {
-          path:"/history",
-          element:<History/>
+          path:"/archives",
+          element:<Archives/>
         },
                         {
           path:"/dashboard",

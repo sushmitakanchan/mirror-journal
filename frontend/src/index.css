@@ -138,3 +138,8 @@
   }
 }
 
+[data-sonner-toaster],
+[data-hot-toast] {
+  z-index: 9999 !important;
+  position: fixed !important;
+}

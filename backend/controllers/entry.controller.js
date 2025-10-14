@@ -13,7 +13,7 @@ export const getEntries = async(req, res)=>{
         if(!user) return res.status(404).json({error:"User not found."})
         
         const entries = await prisma.entry.findMany({
-            where:{user:user.id},
+            where:{userId:user.id},
             orderBy:{createdAt:"desc"},
         });
 

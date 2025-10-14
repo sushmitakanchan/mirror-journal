@@ -29,6 +29,7 @@ const NewEntry = () => {
     handleSubmit,
     control,
     watch,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(journalSchema),
@@ -56,8 +57,12 @@ const NewEntry = () => {
       };
       
       const saved = await addEntry(payload);
-      toast.success("Entry saved!", saved);
-
+      toast.success("Entry saved!");
+      reset({
+        title: "",
+        content: "",
+        mood: "",
+      });
       
     }
     catch(error){

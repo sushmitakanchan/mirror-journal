@@ -72,8 +72,8 @@ const Home = () => {
               <Link to="/newEntry">
               <Button variant="journal"className="px-8 py-6 rounded-full items-center gap-2">Log Journal Enteries <LibraryBig className='h-2 w-2'/></Button>
               </Link>
-              <Link to="#features">
-              <Button variant="outline"className="px-14 py-6 rounded-full border-orange-600 text-orange-600 hover:bg-orange-100">Learn More</Button>
+              <Link to="/archives">
+              <Button variant="outline"className="px-14 py-6 rounded-full border-orange-600 text-orange-600 hover:bg-orange-100">Archives</Button>
               </Link>
             </div>
       </div>
