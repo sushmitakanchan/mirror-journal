@@ -11,6 +11,7 @@ const Archives = () => {
               </Link>
       </div>
       <h1 className="text-5xl md:text-6xl gradient-title">Look back at your archives <Mails className='size-8  text-orange-500 inline-block'/> </h1>
+      <h2>Reflect on your thoughts with AI</h2>
     </div>
   )
 }
