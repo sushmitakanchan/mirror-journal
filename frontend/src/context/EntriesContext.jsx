@@ -50,8 +50,50 @@ export function EntriesProvider({children}){
         }
     }
 
+    const updateEntry = async(id, payload)=>{
+        try {
+        const token = await getToken();
+        const res = await fetch(`http://localhost:3000/entries/updateEntry/${id}`, {
+            method:"PUT",
+            headers:{
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const updated = await res.json();
+
+        setEntries((prev)=>
+        prev.map((entry)=>entry.id === id ? updated : entry))
+        return updated;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const deleteEntry = async(id)=>{
+        try {
+            const token = getToken();
+            const res = await fetch(`http://localhost:3000/entries/deleteEntry/${id}`, {
+                method: 'DELETE',
+                 headers:{
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(payload),
+            })
+              if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.error || "Failed to delete entry");
+            }
+            setEntries((prev)=>prev.filter((entry)=>entry.id !== id))
+            toast.success("Entry deleted successfully!");
+        } catch (error) {
+            
+        }
+    }
     return (
-        <EntriesContext.Provider value={{entries, loading, fetchEntries, addEntry}}>
+        <EntriesContext.Provider value={{entries, loading, fetchEntries, addEntry, updateEntry}}>
             {children}
         </EntriesContext.Provider>
     )

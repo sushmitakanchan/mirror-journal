@@ -31,6 +31,11 @@ import Archives from './components/layout/Archives';
           path:"/newEntry",
           element:<NewEntry/>
         },
+        
+        {
+          path:"/updateEntry/:id",
+          element:<NewEntry isEditMode={true}/>
+        },
 
         {
           path:"/entryView",

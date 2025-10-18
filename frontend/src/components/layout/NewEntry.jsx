@@ -1,8 +1,8 @@
 "use client"
-import React from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { journalSchema } from "../../lib/schema";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BarLoader } from "react-spinners";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "../ui/input";
@@ -21,9 +21,10 @@ import { useEntries } from "@/context/EntriesContext";
 import { toast } from "react-hot-toast";
 
 
-const NewEntry = () => {
-  const {addEntry} = useEntries()
-  // const { getToken } = useAuth();
+const NewEntry = ({isEditMode = false}) => {
+  const {id} = useParams();
+  const {addEntry, entries, updateEntry, fetchEntries} = useEntries()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -37,6 +38,7 @@ const NewEntry = () => {
       title: "",
       content: "",
       mood: "",
+      imageUrl: "",
     },
   });
 
@@ -46,6 +48,22 @@ const NewEntry = () => {
   const selectedMoodId = watch("mood");
   const moodPrompt = selectedMoodId ? MOODS[selectedMoodId]?.prompt ?? "" : "";
 
+  useEffect(()=>{
+    if(isEditMode && entries.length  > 0){
+      const existing = entries.find((e)=>e.id===id);
+      if (existing){
+        reset({
+          title:existing.title || "",
+          content:existing.content || "",
+          mood:existing.mood ?? "",
+          imageUrl: existing.imageUrl || "",
+        })
+      }
+    }
+  }, [isEditMode, id, entries, reset])
+
+
+    
   const onSubmit = async (data) => {
     // setIsLoading(true);
     try{
@@ -55,13 +73,24 @@ const NewEntry = () => {
         content: data.content,
         imageUrl: null
       };
+
+      if (isEditMode) {
+        await updateEntry(id, payload);
+        toast.success("Entry updated!");
+        await fetchEntries();
+        navigate("/archives");
+      } else {
+        await addEntry(payload);
+        toast.success("Entry created!");
+        navigate("/archives");
+      } 
       
-      const saved = await addEntry(payload);
-      toast.success("Entry saved!");
+      
       reset({
         title: "",
         content: "",
         mood: "",
+        imageUrl:"",
       });
       
     }
@@ -69,6 +98,7 @@ const NewEntry = () => {
       console.log(error.message);
     }
   };
+
 
   return (
     <div className="mx-50">
@@ -141,7 +171,7 @@ const NewEntry = () => {
 
         <div className="space-y-2 flex gap-2">
             
-            <Button variant='journal' className='w-30'>Save</Button>
+            <Button variant='journal' className='w-30'>{isEditMode ? "Update" : "Save"}</Button>
             <Button variant='secondary'>Add to collection</Button>
             
         </div>

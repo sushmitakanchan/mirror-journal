@@ -16,13 +16,13 @@ app.use(
     cors({
         origin:"http://localhost:5173",
         credentials:true,
-        methods:['GET', 'POST', 'DELETE'],
+        methods:['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders:['Content-Type', 'Authorization']
     })
 )
 
 app.use('/users', userRoutes)
-app.use('/entries', requireAuth(), entryRoutes)
+app.use('/entries', entryRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
