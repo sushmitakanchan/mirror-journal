@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import cors from "cors";
-import { clerkMiddleware, requireAuth } from "@clerk/express"; 
+import { clerkMiddleware } from "@clerk/express"; 
 import userRoutes from '../routes/user.routes.js';
 import entryRoutes from '../routes/entries.routes.js'
 

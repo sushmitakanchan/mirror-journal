@@ -23,7 +23,7 @@ import { toast } from "react-hot-toast";
 
 const NewEntry = ({isEditMode = false}) => {
   const {id} = useParams();
-  const {addEntry, entries, updateEntry, fetchEntries} = useEntries()
+  const {addEntry, entries, updateEntry, fetchEntries,isDisabled, setIsDisabled} = useEntries()
   const navigate = useNavigate()
   const {
     register,
@@ -66,6 +66,7 @@ const NewEntry = ({isEditMode = false}) => {
     
   const onSubmit = async (data) => {
     // setIsLoading(true);
+    setIsDisabled(true);
     try{
       const payload = {
         title: data.title,
@@ -82,6 +83,7 @@ const NewEntry = ({isEditMode = false}) => {
       } else {
         await addEntry(payload);
         toast.success("Entry created!");
+        await fetchEntries();
         navigate("/archives");
       } 
       
@@ -97,6 +99,9 @@ const NewEntry = ({isEditMode = false}) => {
     catch(error){
       console.log(error.message);
     }
+    finally {
+    setIsDisabled(false); // re-enable after completion
+  }
   };
 
 
@@ -171,7 +176,7 @@ const NewEntry = ({isEditMode = false}) => {
 
         <div className="space-y-2 flex gap-2">
             
-            <Button variant='journal' className='w-30'>{isEditMode ? "Update" : "Save"}</Button>
+            <Button variant='journal' type='submit' disabled={isDisabled} className='w-30'>{isEditMode ? "Update" : "Save"}</Button>
             <Button variant='secondary'>Add to collection</Button>
             
         </div>

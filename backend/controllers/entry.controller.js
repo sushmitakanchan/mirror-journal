@@ -16,7 +16,7 @@ export const getEntries = async(req, res)=>{
             where:{userId:user.id},
             orderBy:{createdAt:"desc"},
         });
-
+        
         res.json(entries)
     } catch (error) {
         console.error(error);
@@ -87,24 +87,16 @@ export const updateEntry = async(req, res)=>{
 export const deleteEntry = async(req, res)=>{
 
     try {
-        const clerkUserId = req.auth.userId;
         const {id} = req.params;
-
-        const user = await prisma.user.findUnique({
-            where:{clerkUserId}
-        })
-        const entry = await prisma.entry.findUnique({
-            where:{id}
-        })
-        if(!user) return res.status(404).json({ error: "User not found" });
-        if(!entry || entry.userId !== user.id)
-        return res.status(403).json({ error: "Not authorized" });
-        
         await prisma.entry.delete({where:{id}});
-        res.json({message:"Entry deleted successfully"})
+        res.status(200).json({
+            success:true,
+            message:"Entry deleted successfully"
+        })
 
     } catch (error) {
-        
+        console.error("Error deleting entry", error);
+        res.status(500).json({error:"Failed to delete entry"})
     }
     
 }
