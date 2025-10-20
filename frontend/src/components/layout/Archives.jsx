@@ -29,15 +29,15 @@ const Archives = () => {
       <ul className='flex flex-col gap-2 mt-5'>
         {loading && <BarLoader color="orange" width={"100%"} />}
         {entries.length > 0 ? entries.map((e, id)=>(
-        <div className='bg-gradient-to-br from-white/100 to-white/50 backdrop-blur-md rounded-xl shadow-lg border border-pink-300 p-3 max-w-3/4 h-35' key={id}>
+        <div className='bg-gradient-to-br from-white/100 to-white/50 backdrop-blur-md rounded-xl shadow-lg border border-pink-300 p-3 max-w-3xl w-full' key={id}>
           <li className='flex justify-between items-center ml-5'>
             <div className='flex flex-col'>
             <h1 className='font-extrabold text-2xl text-orange-700'>{e.title}</h1>
             <p className='font-semibold text-xl text-black'>{e.mood}</p>
-            <div className='font-small text-balance text-black' dangerouslySetInnerHTML={{ __html: e.content }} />
+            <div className='font-small text-balance text-black break-words my-4' dangerouslySetInnerHTML={{ __html: e.content }} />
             </div>
             <div className='flex justify-end gap-1 mb-4 mr-5'>
-                <button onClick={()=> navigate(`/updateEntry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
+                <button onClick={()=> navigate(`/update-entry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
                 <button onClick={() => handleDelete(e.id)}><Trash2 color="#cf6017" className='h-8 w-8'/></button>
           </div>
           </li>

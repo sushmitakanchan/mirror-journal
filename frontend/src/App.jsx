@@ -33,7 +33,7 @@ import Archives from './components/layout/Archives';
         },
         
         {
-          path:"/updateEntry/:id",
+          path:"/update-entry/:id",
           element:<NewEntry isEditMode={true}/>
         },
 
