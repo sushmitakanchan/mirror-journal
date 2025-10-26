@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { ClerkProvider } from '@clerk/clerk-react'
 import { EntriesProvider } from './context/EntriesContext'
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "@/components/theme-provider"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
@@ -23,6 +24,5 @@ createRoot(document.getElementById('root')).render(
       <App />
       </EntriesProvider>
      </ClerkProvider>
-    
   </StrictMode>
 )

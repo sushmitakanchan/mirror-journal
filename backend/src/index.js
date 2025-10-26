@@ -1,4 +1,5 @@
 import express from "express";
+import reflectRoutes from '../routes/reflect.routes.js'
 
 import dotenv from "dotenv";
 dotenv.config();
@@ -23,12 +24,12 @@ app.use(
 
 app.use('/users', userRoutes)
 app.use('/entries', entryRoutes)
+app.use('/api', reflectRoutes)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`Server is running on ${PORT}`);
     // console.log("CLERK_PUBLISHABLE_KEY:", !!process.env.CLERK_PUBLISHABLE_KEY);
     // console.log("CLERK_SECRET_KEY:", !!process.env.CLERK_SECRET_KEY);
-
     
 })
