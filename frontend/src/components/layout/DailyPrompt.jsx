@@ -34,7 +34,7 @@ const DailyPrompt = () => {
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        <p className="text-orange-800">{prompt}</p>
+        <p className="text-orange-800 dark:text-zinc-200">{prompt}</p>
       )}
     </div>
   );
