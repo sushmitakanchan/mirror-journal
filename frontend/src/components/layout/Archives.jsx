@@ -41,7 +41,7 @@ const Archives = () => {
                 <button onClick={()=> navigate(`/update-entry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
                 <button onClick={() => handleDelete(e.id)}><Trash2 color="#cf6017" className='h-8 w-8'/></button>
                 <div className='h-10 w-12flex items-center justify-center rounded-2xl'>
-                <Button variant='journal'><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
+                <Button variant='journal' onClick={()=>navigate(`/reflect`)}><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
                 </div>
           </div>
           </li>
@@ -51,7 +51,7 @@ const Archives = () => {
       </ul>
       <div className="hidden lg:flex flex-col items-center flex-1">
       <div className="relative h-[100vh] w-full">
-      <img src={ticket} className="absolute inset-0 w-full h-full object-cover"/>
+      {entries.length > 0 && <img src={ticket} className="absolute inset-0 w-full h-full object-cover mt-3"/>}
     </div>
            <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md'>Grab it now!</Button>
     </div>

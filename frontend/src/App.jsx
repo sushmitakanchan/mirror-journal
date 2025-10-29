@@ -1,6 +1,6 @@
 import {createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NewEntry from './components/layout/NewEntry';
-import EntryView from './components/layout/EntryView';
+import ReflectView from './components/layout/ReflectView';
 import AppLayout from './components/layout/AppLayout';
 import { SignIn, SignUp} from '@clerk/clerk-react';
 import Dashboard from './components/layout/Dashboard';
@@ -40,8 +40,8 @@ import Archives from './components/layout/Archives';
         },
 
         {
-          path:"/entryView",
-          element:<EntryView/>
+          path:"/reflect",
+          element:<ReflectView/>
         },
 
                 {
