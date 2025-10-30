@@ -6,13 +6,22 @@ import { SquarePen, Trash2, Sparkles } from 'lucide-react';
 import { BarLoader } from "react-spinners";
 import ticket from "../../assets/ticket1.png"
 import { Button } from '../ui/button';
+
 const Archives = () => {
   const {entries, fetchEntries, loading, deleteEntry} = useEntries()
   const navigate = useNavigate();
   useEffect(() => {
     fetchEntries();
   }, [fetchEntries]);
-  // console.log("📦 entries in Archives:", entries);
+  console.log("📦 entries in Archives:", entries);
+
+      const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: '2-digit',
+    minute: '2-digit'
+  };
 
   const handleDelete = async (id) => {
   await deleteEntry(id); 
@@ -31,11 +40,12 @@ const Archives = () => {
         {loading && <BarLoader color="orange" width={"100%"} />}
         {entries.length > 0 ? entries.map((e, id)=>(
         <div className='bg-gradient-to-br from-white/100 to-white/50 backdrop-blur-md rounded-xl shadow-lg border border-pink-300 p-3 max-w-3xl w-full dark:bg-white' key={id}>
-          <li className='flex justify-between items-center ml-5'>
+          <li className='flex justify-between items-center ml-4'>
             <div className='flex flex-col px-10'>
-            <h1 className='font-extrabold text-2xl text-orange-700'>{e.title}</h1>
-            <p className='font-semibold text-xl text-black'>{e.mood}</p>
-            <div className='font-small text-balance text-black break-words my-4' dangerouslySetInnerHTML={{ __html: e.content }} />
+            <h1 className='font-extrabold text-2xl text-black'>{e.title}</h1>
+            <p className='font-semibold text-xl text-orange-700'>{e.mood}</p>
+            <h6 className='font-bold text-xs text-black'>{new Date(e.updatedAt).toLocaleString("en-US", options)}</h6>
+            <div className='font-small text-balance text-black break-words my-5' dangerouslySetInnerHTML={{ __html: e.content }} />
             </div>
             <div className='flex justify-end gap-1 mb-4 mr-5'>
                 <button onClick={()=> navigate(`/update-entry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
@@ -50,7 +60,7 @@ const Archives = () => {
       )):<h3 className='text-center text-gray-600 mt-10'>No enteries found.</h3>}
       </ul>
       <div className="hidden lg:flex flex-col items-center flex-1">
-      <div className="relative h-[100vh] w-full">
+      <div className="relative h-[100vh] w-full mt-30">
       {entries.length > 0 && <img src={ticket} className="absolute inset-0 w-full h-full object-cover mt-3"/>}
     </div>
            <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md'>Grab it now!</Button>
