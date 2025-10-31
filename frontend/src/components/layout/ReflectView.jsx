@@ -1,7 +1,44 @@
 import React from 'react'
 import reflectbg2 from '../../assets/reflectbg2.png'
+import { useLocation, useParams } from "react-router-dom";
+import { useState } from "react";
 
 const ReflectView = () => {
+    const {id} = useParams();
+    const location = useLocation();
+    const entry =  location.state?.entry;
+    const [userMessage, setUserMessage] = useState(null);
+
+    const [input, setInput] = useState(entry?.content || "");
+    const [aiReply, setAiReply] = useState(entry?.aiReply || "");
+    const [loading, setLoading] = useState(false);
+
+    
+
+    const handleReflect = async(e)=>{
+      e.preventDefault();
+      if(!input.trim())return;
+
+      // setLoading(true);
+        setUserMessage(input);
+        const currentMessage = input;
+        setInput(""); // clears input box
+        setLoading(true);
+      try {
+        const res = await fetch(`http://localhost:3000/api/reflect/${id}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: currentMessage }),
+        });
+      const data = await res.json();
+      const reply = data.aiReply || data.reflection || data.entry?.aiReply || entry?.aiReply || "No reply received.";
+      setAiReply(reply);
+      } catch (error) {
+        console.log(error);
+      } finally{
+        setLoading(false);
+      }
+    }
   return (
 
     <div className="min-h-screen flex flex-col md:flex-row mx-10 my-6 gap-6">
@@ -28,27 +65,44 @@ const ReflectView = () => {
                   <div className="text-black dark:text-white text-sm">Your private assistant</div>
                 </div>
               </div>
-              <div className="text-sm text-black dark:text-white">Online</div>
+              <div className="text-sm text-orange-600 dark:text-white">Online</div>
             </div>
 
             {/* Messages area */}
             <div className="flex-1 overflow-auto mb-4 space-y-3 pr-2">
-              <div className="max-w-[80%] bg-white/10 text-black dark:text-white rounded-xl p-3">Hi — how can I help with your reflection today?</div>
-              <div className="self-end max-w-[80%] bg-white/20 text-black dark:text-white rounded-xl p-3">I want to adjust the image focus.</div>
-              {/* Add more messages here */}
+              <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">Hi, how can I help with your reflection today?</div>
+             {userMessage && (
+            <div className="ml-60 self-end max-w-[80%] bg-amber-100 text-black dark:text-white rounded-xl p-3">
+              {userMessage}
             </div>
+            )}
+            {loading && (
+            <div className="max-w-[80%] bg-white/10 text-black dark:text-white rounded-xl p-3">
+            Reflecting...
+            </div>
+            )}
+
+            {aiReply && !loading && (
+            <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">
+            {aiReply}
+            </div>
+            )}
+          </div>
             {/* Input area */}
-            <form className="mt-2 flex items-center gap-3">
+            <form onSubmit={handleReflect} className="mt-2 flex items-center gap-3">
               <input
                 type="text"
+                value={input}
+                onChange={(e)=>setInput(e.target.value)}
                 placeholder="Type a message..."
                 className="flex-1 bg-white/10 placeholder-black/60 text-black dark:text-white rounded-full px-4 py-2 outline border border-white/10 focus:border-white/20"
               />
               <button
                 type="submit"
+                disabled={loading}
                 className="px-4 py-2 rounded-full bg-white/30 text-black dark:text-white font-semibold hover:bg-white/40 transition"
               >
-                Send
+                {loading ? "Reflecting..." : "Send"}
               </button>
             </form>
           </div>

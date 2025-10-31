@@ -28,6 +28,7 @@ model Entry{
   content String
   imageUrl String?
   mood String?
+  aiReply String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

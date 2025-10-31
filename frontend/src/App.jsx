@@ -40,7 +40,7 @@ import Archives from './components/layout/Archives';
         },
 
         {
-          path:"/reflect",
+          path:"/reflect/:id",
           element:<ReflectView/>
         },
 

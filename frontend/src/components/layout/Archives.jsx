@@ -27,6 +27,10 @@ const Archives = () => {
   await deleteEntry(id); 
   await fetchEntries();  
 };
+
+const handleReflect = async (id) =>{
+  navigate(`/reflect`)
+}
   return (
     <div className='mx-50'>
       <div className="container py-4">
@@ -40,23 +44,23 @@ const Archives = () => {
         {loading && <BarLoader color="orange" width={"100%"} />}
         {entries.length > 0 ? entries.map((e, id)=>(
         <div className='bg-gradient-to-br from-white/100 to-white/50 backdrop-blur-md rounded-xl shadow-lg border border-pink-300 p-3 max-w-3xl w-full dark:bg-white' key={id}>
-          <li className='flex justify-between items-center ml-4'>
+          <li className='flex justify-between items-center ml-4 py-2'>
             <div className='flex flex-col px-10'>
             <h1 className='font-extrabold text-2xl text-black'>{e.title}</h1>
-            <p className='font-semibold text-xl text-orange-700'>{e.mood}</p>
             <h6 className='font-bold text-xs text-black'>{new Date(e.updatedAt).toLocaleString("en-US", options)}</h6>
-            <div className='font-small text-balance text-black break-words my-5' dangerouslySetInnerHTML={{ __html: e.content }} />
+             <label className='font-bold  text-black'>Mood : <p className='font-semibold inline-block text-md text-orange-700 italic mt-5'>{e.mood}</p></label>
+            <div className='font-small text-balance text-black break-words' dangerouslySetInnerHTML={{ __html: e.content }} />
+            {e.aiReply && <label className='font-bold my-5 text-black'>Reflection : <div className='font-small text-balance text-orange-700 break-words' dangerouslySetInnerHTML={{ __html: e.aiReply }} /></label>}
             </div>
             <div className='flex justify-end gap-1 mb-4 mr-5'>
                 <button onClick={()=> navigate(`/update-entry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
                 <button onClick={() => handleDelete(e.id)}><Trash2 color="#cf6017" className='h-8 w-8'/></button>
                 <div className='h-10 w-12flex items-center justify-center rounded-2xl'>
-                <Button variant='journal' onClick={()=>navigate(`/reflect`)}><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
+                <Button variant='journal' onClick={()=>navigate(`/reflect/${e.id}`, { state: { entry: e } })}><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
                 </div>
           </div>
           </li>
-        </div>
-        
+        </div> 
       )):<h3 className='text-center text-gray-600 mt-10'>No enteries found.</h3>}
       </ul>
       <div className="hidden lg:flex flex-col items-center flex-1">

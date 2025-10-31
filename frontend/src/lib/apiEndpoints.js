@@ -4,5 +4,6 @@ export const endpoints = {
     fetchEntries:`${base_url}/entries`,
     createEntry: `${base_url}/entries/create-entry`,
     updateEntry: (id) => `${base_url}/entries/update-entry/${id}`,
-    deleteEntry:(id) => `${base_url}/entries/delete-entry/${id}`
+    deleteEntry:(id) => `${base_url}/entries/delete-entry/${id}`,
+    getReflectById:(id)=>`${base_url}/api/reflect/${id}`
 }
