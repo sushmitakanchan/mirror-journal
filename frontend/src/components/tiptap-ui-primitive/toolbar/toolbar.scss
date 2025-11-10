@@ -1,7 +1,7 @@
 :root {
   --tt-toolbar-height: 2.75rem;
   --tt-safe-area-bottom: env(safe-area-inset-bottom, 0px);
-  --tt-toolbar-bg-color: var(--white);
+  --tt-toolbar-bg-color: var(--color-orange-300);
   --tt-toolbar-border-color: var(--tt-gray-light-a-100);
 }
 
@@ -14,7 +14,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-
+  border-radius: 10px;
   &-group {
     display: flex;
     align-items: center;

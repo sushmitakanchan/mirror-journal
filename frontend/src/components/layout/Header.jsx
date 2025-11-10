@@ -16,12 +16,12 @@ const Header = () => {
     </Link>
     <div className='flex items-center gap-4 text-black'>
       <SignedIn>
-      <Link to='/dashboard#collections'>
+      {/* <Link to='/dashboard#collections'>
       <Button variant="white" className="flex items-center gap-2">
         <FolderOpen size={18}/>
         <span className='hidden md:inline'>Collections</span>
         </Button>
-      </Link>
+      </Link> */}
       </SignedIn>
 
       <Link to='/newEntry'>

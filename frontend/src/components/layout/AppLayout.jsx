@@ -11,7 +11,7 @@ const AppLayout = () => {
   const bgImg = "/bgImg.jpg"; // Place bgImg.jpg in your public folder
 
   return (
-    <div className={`w-screen min-h-screen bg-cover bg-center bg-no-repeat ${theme === "dark" ? "dark:bg-neutral-800" : ""}`}
+    <div className={`w-screen min-h-screen bg-cover bg-center bg-no-repeat text-black dark:text-white ${theme === "dark" ? "dark:bg-neutral-800" : ""}`}
     style={theme === "light" ? { backgroundImage: `url(${bgImg})` } : {}}>
       <Header/>
       {/* <div className='flex justify-center pt-5'> */}

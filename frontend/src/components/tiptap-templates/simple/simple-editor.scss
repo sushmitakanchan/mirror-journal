@@ -56,23 +56,33 @@ body,
 
 .simple-editor-wrapper {
   width: 100vw;
-  height: 100vh;
+  height: auto !important;
   overflow: auto;
 }
 
 .simple-editor-content {
   max-width: 648px;
+  max-height: none;
+  overflow: visible;
   width: 100%;
   margin: 0 auto;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .simple-editor-content .tiptap.ProseMirror.simple-editor {
+  text-align: left !important;
+  vertical-align: top;
   flex: 1;
-  padding: 3rem 3rem 30vh;
+  padding: 3rem 1px 30vh;
+  margin-left: -150px;
+  min-height: 120px;      /* optional starting height */
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  white-space: pre-wrap;
 }
 
 @media screen and (max-width: 480px) {

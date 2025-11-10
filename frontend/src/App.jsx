@@ -40,6 +40,11 @@ import Archives from './components/layout/Archives';
         },
 
         {
+          path:"/reflect",
+          element:<ReflectView/>
+        },
+
+        {
           path:"/reflect/:id",
           element:<ReflectView/>
         },

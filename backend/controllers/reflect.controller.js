@@ -23,7 +23,7 @@ export const getReflect = async(req, res)=>{
                     content: content 
                 },
                 ],
-                max_tokens: 100,
+                max_tokens: 80,
             })
         });
 

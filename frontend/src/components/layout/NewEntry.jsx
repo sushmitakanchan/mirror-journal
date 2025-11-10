@@ -129,17 +129,17 @@ const NewEntry = ({isEditMode = false}) => {
         {isLoading && <BarLoader color="orange" width={"100%"} />}
 
         <div className="space-y-2">
-          <label className="text-medium font-medium">Title:</label>
+          <label className="text-medium font-medium text-black dark:text-white">Title:</label>
           <Input
             {...register("title")}
             placeholder="Give your entry a title..."
-            className={`px-5 md:text-md ${errors.title ? "border-red-500" : ""}`}
+            className={`px-5 md:text-md text-black dark:text-white ${errors.title ? "border-red-500" : ""}`}
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <label className="text-medium font-medium">How are you feeling?</label>
+          <label className="text-medium font-medium text-black dark:text-white">How are you feeling?</label>
 
           <Controller
           key={selectedMoodId || "mood-controller"} 
@@ -155,7 +155,7 @@ const NewEntry = ({isEditMode = false}) => {
                   <SelectContent>
                     {Object.values(MOODS).map((mood) => (
                       <SelectItem key={mood.id} value={mood.id}>
-                        <span className="flex items-center gap-2">
+                        <span className="flex items-center gap-2 text-black dark:text-white">
                           {mood.emoji} {mood.label}
                         </span>
                       </SelectItem>
@@ -174,7 +174,7 @@ const NewEntry = ({isEditMode = false}) => {
         </div>
 
         {/* Editor area: use Controller for `content` so `field` is available */}
-        <div className="text-black flex items-start mr-30 bg-orange-100 shadow-xl rounded-2xl p-4">
+        <div className="text-black flex items-start mr-30 bg-orange-100 dark:bg-zinc-900 shadow-xl rounded-2xl p-4 dark:text-white">
           <Controller
             name="content"
             control={control}
@@ -194,7 +194,7 @@ const NewEntry = ({isEditMode = false}) => {
         <div className="space-y-2 flex gap-2">
             
             <Button variant='journal' type='submit' disabled={isDisabled} className='w-30'>{isEditMode ? "Update" : "Save"}</Button>
-            <Button variant='secondary'>Add to collection</Button>
+            {/* <Button variant='secondary'>Add to collection</Button> */}
             
         </div>
       </form>

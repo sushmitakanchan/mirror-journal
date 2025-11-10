@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { ThemeProvider as NextThemeProvider } from "next-themes";
 
 const ThemeContext = createContext();
 
@@ -11,6 +10,7 @@ export const ThemeProvider = ({ children }) => {
      const initial = saved || "light";
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
+    console.log(theme)
   }, []);
 
   const toggleTheme = () => {

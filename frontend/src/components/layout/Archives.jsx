@@ -8,7 +8,7 @@ import ticket from "../../assets/ticket1.png"
 import { Button } from '../ui/button';
 
 const Archives = () => {
-  const {entries, fetchEntries, loading, deleteEntry} = useEntries()
+  const {entries, fetchEntries, loading, deleteEntry, isDisabled, setIsDisabled} = useEntries()
   const navigate = useNavigate();
   useEffect(() => {
     fetchEntries();
@@ -28,8 +28,12 @@ const Archives = () => {
   await fetchEntries();  
 };
 
-const handleReflect = async (id) =>{
+const handleSubmit = () =>{
   navigate(`/reflect`)
+}
+
+const handleReflect = ()=>{
+  
 }
   return (
     <div className='mx-50'>
@@ -53,10 +57,12 @@ const handleReflect = async (id) =>{
             {e.aiReply && <label className='font-bold my-5 text-black'>Reflection : <div className='font-small text-balance text-orange-700 break-words' dangerouslySetInnerHTML={{ __html: e.aiReply }} /></label>}
             </div>
             <div className='flex justify-end gap-1 mb-4 mr-5'>
-                <button onClick={()=> navigate(`/update-entry/${e.id}`)}><SquarePen color="#cf6017" className='h-8 w-8'/></button>
-                <button onClick={() => handleDelete(e.id)}><Trash2 color="#cf6017" className='h-8 w-8'/></button>
+                <button onClick={()=> navigate(`/update-entry/${e.id}`)} disabled={isDisabled}><SquarePen color="#cf6017" className='h-8 w-8 cursor-pointer'/></button>
+                <button onClick={() => handleDelete(e.id)}><Trash2 color="#cf6017" className='h-8 w-8 cursor-pointer'/></button>
                 <div className='h-10 w-12flex items-center justify-center rounded-2xl'>
-                <Button variant='journal' onClick={()=>navigate(`/reflect/${e.id}`, { state: { entry: e } })}><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
+                <Button variant='journal' onClick={()=>{
+                  navigate(`/reflect/${e.id}`, { state: { entry: e } });
+                  }}><Sparkles color="#ffffff" className='h-8 w-8'/></Button>
                 </div>
           </div>
           </li>
@@ -67,7 +73,7 @@ const handleReflect = async (id) =>{
       <div className="relative h-[100vh] w-full mt-30">
       {entries.length > 0 && <img src={ticket} className="absolute inset-0 w-full h-full object-cover mt-3"/>}
     </div>
-           <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md'>Grab it now!</Button>
+           <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md' onClick={handleSubmit}>Grab it now!</Button>
     </div>
   </div>
 </div>

@@ -1,5 +1,6 @@
 import React from 'react'
-import reflectbg2 from '../../assets/reflectbg2.png'
+// import reflectbg2 from '../../assets/reflectbg2.png'
+import image from '../../assets/image.png'
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 
@@ -43,12 +44,12 @@ const ReflectView = () => {
 
     <div className="min-h-screen flex flex-col md:flex-row mx-10 my-6 gap-6">
       {/* LEFT: Image side */}
-      <div className="md:w-1/3 w-full h-[80vh] md:h-[90vh] rounded-3xl overflow-hidden shadow-xl ml-20">
+      <div className="md:w-2/5 w-full h-[80vh] md:h-[90vh] rounded-3xl overflow-hidden shadow-xl ml-20">
         {/* Use <img> for precise focal control */}
         <img
-          src={reflectbg2}
+          src={image}
           alt="Decorative"
-          className="w-full h-full object-[30%_50%]" 
+          className="w-full h-4/4 object-[30%_50%]" 
         />
       </div>
       <div className="md:w-3/4 w-full h-[70vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden">
