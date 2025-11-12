@@ -1,8 +1,7 @@
 import express from 'express'
-import {getReflect, getReflectById} from '../controllers/reflect.controller.js'
-const router = express.Router()
+import {getReflectById} from '../controllers/reflect.controller.js'
 
-router.post('/reflect', getReflect);
+const router = express.Router()
 router.post('/reflect/:id', getReflectById);
 
 export default router;

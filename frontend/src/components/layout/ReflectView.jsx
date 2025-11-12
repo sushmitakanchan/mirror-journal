@@ -1,11 +1,13 @@
 import React from 'react'
-// import reflectbg2 from '../../assets/reflectbg2.png'
+import { Link } from 'react-router-dom';
 import image from '../../assets/image.png'
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useEntries } from '@/context/EntriesContext';
 
 const ReflectView = () => {
     const {id} = useParams();
+    const {entries} = useEntries();
     const location = useLocation();
     const entry =  location.state?.entry;
     const [userMessage, setUserMessage] = useState(null);
@@ -41,7 +43,12 @@ const ReflectView = () => {
       }
     }
   return (
-
+    <div>
+      <div className="px-30">
+              <Link to="/archives" className="text-md text-orange-600 hover:text-orange-700 cursor-pointer dark:text-orange-300 dark:hover:text-orange-400">
+                ← Back to Archives
+              </Link>
+    </div>
     <div className="min-h-screen flex flex-col md:flex-row mx-10 my-6 gap-6">
       {/* LEFT: Image side */}
       <div className="md:w-2/5 w-full h-[80vh] md:h-[90vh] rounded-3xl overflow-hidden shadow-xl ml-20">
@@ -71,7 +78,13 @@ const ReflectView = () => {
 
             {/* Messages area */}
             <div className="flex-1 overflow-auto mb-4 space-y-3 pr-2">
-              <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">Hi, how can I help with your reflection today?</div>
+            <div className="ml-60 self-end max-w-[80%] bg-amber-100 text-black dark:text-white rounded-xl p-3">
+              {input.replace(/<[^>]+>/g, '')}
+            </div>
+            {/* <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">
+            {entries.aiReply}
+            </div>           */}
+            <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">Hi, how can I help with your reflection today?</div>
              {userMessage && (
             <div className="ml-60 self-end max-w-[80%] bg-amber-100 text-black dark:text-white rounded-xl p-3">
               {userMessage}
@@ -93,7 +106,7 @@ const ReflectView = () => {
             <form onSubmit={handleReflect} className="mt-2 flex items-center gap-3">
               <input
                 type="text"
-                value={input}
+                value={input.replace(/<[^>]+>/g, '')}
                 onChange={(e)=>setInput(e.target.value)}
                 placeholder="Type a message..."
                 className="flex-1 bg-white/10 placeholder-black/60 text-black dark:text-white rounded-full px-4 py-2 outline border border-white/10 focus:border-white/20"
@@ -113,6 +126,7 @@ const ReflectView = () => {
         </div>
       </div>
 </div>
+      </div>
   )
 }
 

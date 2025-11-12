@@ -73,7 +73,7 @@ const handleReflect = ()=>{
       <div className="relative h-[100vh] w-full mt-30">
       {entries.length > 0 && <img src={ticket} className="absolute inset-0 w-full h-full object-cover mt-3"/>}
     </div>
-           <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md' onClick={handleSubmit}>Grab it now!</Button>
+           {/* <Button variant='journal' className='mt-4  text-white font-semibold px-10 py-6 rounded-xl shadow-md' onClick={handleSubmit}>Grab it now!</Button> */}
     </div>
   </div>
 </div>

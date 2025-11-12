@@ -2,7 +2,7 @@ import React from 'react'
 import write from '../../assets/write.png'
 import reflect from '../../assets/reflect.png'
 import rewire from '../../assets/rewire.png'
-
+import arrow from '../../assets/right-arrow.png'
 
 const Footer = () => {
   return (

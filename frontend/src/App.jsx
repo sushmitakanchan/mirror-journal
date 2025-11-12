@@ -39,10 +39,10 @@ import Archives from './components/layout/Archives';
           element:<NewEntry isEditMode={true}/>
         },
 
-        {
-          path:"/reflect",
-          element:<ReflectView/>
-        },
+        // {
+        //   path:"/reflect",
+        //   element:<ReflectView/>
+        // },
 
         {
           path:"/reflect/:id",
