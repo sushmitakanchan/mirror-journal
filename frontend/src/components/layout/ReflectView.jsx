@@ -1,41 +1,46 @@
-import React from 'react'
+import React , {useRef, useEffect} from 'react'
+import DOMPurify from "dompurify";
 import { Link } from 'react-router-dom';
 import image from '../../assets/image.png'
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
-import { useEntries } from '@/context/EntriesContext';
 
 const ReflectView = () => {
     const {id} = useParams();
-    const {entries} = useEntries();
     const location = useLocation();
     const entry =  location.state?.entry;
-    const [userMessage, setUserMessage] = useState(null);
-
-    const [input, setInput] = useState(entry?.content || "");
-    const [aiReply, setAiReply] = useState(entry?.aiReply || "");
-    const [loading, setLoading] = useState(false);
-
+    const initialAiReply = entry?.aiReply || "";
     
+    // const [followUpReply, setFollowUpReply] = useState("")
+    // const [userMessage, setUserMessage] = useState(null);
+    const [input, setInput] = useState("");
+    const [loading, setLoading] = useState(false);
+     const scrollRef = useRef(null);
+    const [messages, setMessages] = useState([
+      {from:"user", html:entry.content || ""},
+      ...(initialAiReply ? [{from: "ai", text:initialAiReply}]:[]),
+      {from:"ai", text:"Do you want to dive deeper into this?"},
+    ])
+
+    useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+  }, [messages, loading]);
 
     const handleReflect = async(e)=>{
       e.preventDefault();
       if(!input.trim())return;
-
-      // setLoading(true);
-        setUserMessage(input);
-        const currentMessage = input;
-        setInput(""); // clears input box
+      setInput(""); 
+      const message = input.trim();
+        setMessages((m)=>[...m,{from:"user", text: message}]);
         setLoading(true);
       try {
         const res = await fetch(`http://localhost:3000/api/reflect/${id}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: currentMessage }),
+          body: JSON.stringify({ message }),
         });
       const data = await res.json();
-      const reply = data.aiReply || data.reflection || data.entry?.aiReply || entry?.aiReply || "No reply received.";
-      setAiReply(reply);
+      setMessages((m) => [...m, { from: "ai", text: data.aiReply || "No reply." }]);
       } catch (error) {
         console.log(error);
       } finally{
@@ -77,36 +82,38 @@ const ReflectView = () => {
             </div>
 
             {/* Messages area */}
-            <div className="flex-1 overflow-auto mb-4 space-y-3 pr-2">
-            <div className="ml-60 self-end max-w-[80%] bg-amber-100 text-black dark:text-white rounded-xl p-3">
-              {input.replace(/<[^>]+>/g, '')}
-            </div>
-            {/* <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">
-            {entries.aiReply}
-            </div>           */}
-            <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">Hi, how can I help with your reflection today?</div>
-             {userMessage && (
-            <div className="ml-60 self-end max-w-[80%] bg-amber-100 text-black dark:text-white rounded-xl p-3">
-              {userMessage}
-            </div>
-            )}
+            <div ref={scrollRef} className="flex-1 overflow-auto mb-4 space-y-3 pr-2">
+            {messages.map((m, i) => {
+              const user = m.from === "user";
+              const base = "max-w-[80%] rounded-xl p-3";
+              const cls = user ? `${base} ml-auto bg-amber-100` : `${base} bg-white/80`;
+              return (
+                <div key={i} className={cls}>
+                  {m.html ? (
+                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(m.html) }} />
+                  ) : (
+                    <div>{m.text}</div>
+                  )}
+                </div>
+              )
+            })}
             {loading && (
             <div className="max-w-[80%] bg-white/10 text-black dark:text-white rounded-xl p-3">
             Reflecting...
             </div>
             )}
 
-            {aiReply && !loading && (
+            {/* {followUpReply  && !loading && (
             <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">
-            {aiReply}
+            {followUpReply }
             </div>
-            )}
+            )} */}
           </div>
             {/* Input area */}
             <form onSubmit={handleReflect} className="mt-2 flex items-center gap-3">
               <input
                 type="text"
-                value={input.replace(/<[^>]+>/g, '')}
+                value={input}
                 onChange={(e)=>setInput(e.target.value)}
                 placeholder="Type a message..."
                 className="flex-1 bg-white/10 placeholder-black/60 text-black dark:text-white rounded-full px-4 py-2 outline border border-white/10 focus:border-white/20"
@@ -116,7 +123,7 @@ const ReflectView = () => {
                 disabled={loading}
                 className="px-4 py-2 rounded-full bg-white/30 text-black dark:text-white font-semibold hover:bg-white/40 transition"
               >
-                {loading ? "Reflecting..." : "Send"}
+                {loading ? "…" : "Send"}
               </button>
             </form>
           </div>
