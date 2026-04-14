@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { EditorContent, EditorContext, useEditor } from "@tiptap/react"
+import { useAuth } from "@clerk/clerk-react"
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit"
@@ -69,6 +70,7 @@ import { useCursorVisibility } from "@/hooks/use-cursor-visibility"
 
 // --- Lib ---
 import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
+import { uploadImageToCloudinary } from "@/lib/cloudinaryUpload"
 
 // --- Styles ---
 import "@/components/tiptap-templates/simple/simple-editor.scss"
@@ -159,6 +161,7 @@ export function SimpleEditor({
   initialContent = "", // fallback only used on first mount if value === undefined/null
   moodPrompt = "", // optional mood prompt to inject when editor empty
 }) {
+  const { getToken } = useAuth()
   const isMobile = useIsMobile()
   const { height } = useWindowSize()
   const [mobileView, setMobileView] = React.useState("main")
@@ -166,6 +169,20 @@ export function SimpleEditor({
 
   // A ref to avoid reacting to programmatic setContent updates as user edits
   const programmaticSetRef = React.useRef(false)
+
+  const authenticatedImageUpload = React.useCallback(
+    (file, onProgress, abortSignal) =>
+      handleImageUpload(file, onProgress, abortSignal, (validatedFile, progressHandler, signal) =>
+        uploadImageToCloudinary({
+          abortSignal: signal,
+          file: validatedFile,
+          getToken,
+          intent: "entry-inline",
+          onProgress: progressHandler,
+        }).then((result) => result.secureUrl)
+      ),
+    [getToken]
+  )
 
   // Create editor with no persistent default `content`
   const editor = useEditor({
@@ -203,7 +220,7 @@ export function SimpleEditor({
         accept: "image/*",
         maxSize: MAX_FILE_SIZE,
         limit: 3,
-        upload: handleImageUpload,
+        upload: authenticatedImageUpload,
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
@@ -223,7 +240,7 @@ export function SimpleEditor({
         console.error("Error reading editor content:", err)
       }
     },
-  })
+  }, [authenticatedImageUpload])
 
   const rect = useCursorVisibility({
     editor,

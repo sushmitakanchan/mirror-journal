@@ -5,26 +5,22 @@ export const syncUser = async(req, res)=>{
     try {
         const clerkUserId = req.auth.userId;
         const { email, name, imageUrl} = req.body;
+        const normalizedEmail = typeof email === "string" ? email.trim() || null : null;
 
         if (!clerkUserId) {
         return res.status(400).json({ error: "Missing clerkUserId from Clerk authentication" });
         }
 
-        //check if user exists in DB
-        let user = await prisma.user.findUnique({
+        const user = await prisma.user.upsert({
             where:{clerkUserId},
+            update:{},
+            create:{
+                clerkUserId,
+                email: normalizedEmail,
+                name,
+                ImageUrl: imageUrl,
+            },
         });
-        // if not, create new user
-        if(!user){
-            user=await prisma.user.create({
-                data:{
-                    clerkUserId,
-                    email,
-                    name,
-                    ImageUrl: imageUrl,
-                },
-            });
-        }
         res.status(200).json(user);
     } catch (error) {
         console.log(error);

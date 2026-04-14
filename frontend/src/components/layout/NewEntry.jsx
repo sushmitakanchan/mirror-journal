@@ -16,7 +16,6 @@ import {
 import { MOODS } from "@/lib/moods";
 import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { Button } from "../ui/button";
-// import { useAuth } from "@clerk/clerk-react";
 import { useEntries } from "@/context/EntriesContext";
 import { toast } from "react-hot-toast";
 
@@ -31,7 +30,7 @@ const NewEntry = ({isEditMode = false}) => {
     control,
     watch,
     reset,
-    setValue, 
+    setValue,
     getValues,
     formState: { errors },
   } = useForm({
@@ -40,7 +39,6 @@ const NewEntry = ({isEditMode = false}) => {
       title: "",
       content: "",
       mood: "",
-      imageUrl: "",
     },
   });
 
@@ -66,7 +64,6 @@ const NewEntry = ({isEditMode = false}) => {
     title: existing.title || "",
     content: existing.content || "",
     mood: moodId,
-    imageUrl: existing.imageUrl || "",
   });
 
   setValue("mood", moodId);
@@ -79,22 +76,23 @@ const NewEntry = ({isEditMode = false}) => {
     // setIsLoading(true);
     setIsDisabled(true);
     try{
+      const existingEntry = entries.find((entry) => entry.id === id);
       const payload = {
         title: data.title,
         mood: data.mood,
         content: data.content,
-        imageUrl: null
+        imageUrl: existingEntry?.imageUrl ?? null,
       };
 
       if (isEditMode) {
         await updateEntry(id, payload);
         toast.success("Entry updated!");
-        await fetchEntries();
+        await fetchEntries({ force: true });
         navigate("/archives");
       } else {
         await addEntry(payload);
         toast.success("Entry created!");
-        await fetchEntries();
+        await fetchEntries({ force: true });
         navigate("/archives");
       } 
       
@@ -103,7 +101,6 @@ const NewEntry = ({isEditMode = false}) => {
         title: "",
         content: "",
         mood: "",
-        imageUrl:"",
       });
       
     }

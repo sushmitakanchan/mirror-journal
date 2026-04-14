@@ -1,7 +1,6 @@
 import { endpoints } from "@/lib/apiEndpoints";
-import { useAuth } from "@clerk/clerk-react";
-import { useEffect } from "react";
-import { useCallback } from "react";
+import { useAuth, useUser } from "@clerk/clerk-react";
+import { useCallback, useEffect, useRef } from "react";
 import { createContext, useState, useContext } from "react";
 import { toast } from "react-hot-toast";
 
@@ -11,25 +10,106 @@ export function EntriesProvider({ children }) {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [syncedClerkUserId, setSyncedClerkUserId] = useState(null);
+  const fetchEntriesPromiseRef = useRef(null);
+  const syncUserPromiseRef = useRef(null);
   const { getToken } = useAuth();
+  const { user, isSignedIn } = useUser();
 
-  const fetchEntries = useCallback(async () => {
-    setLoading(true);
-    try {
-      const token = await getToken({ skipCache: true });
-      const res = await fetch(endpoints.fetchEntries, {
+  useEffect(() => {
+    if (!isSignedIn) {
+      setEntries([]);
+      setLoading(false);
+      setSyncedClerkUserId(null);
+      fetchEntriesPromiseRef.current = null;
+      syncUserPromiseRef.current = null;
+      return;
+    }
+
+    if (user?.id !== syncedClerkUserId) {
+      setEntries([]);
+      setLoading(true);
+      fetchEntriesPromiseRef.current = null;
+      syncUserPromiseRef.current = null;
+    }
+  }, [isSignedIn, syncedClerkUserId, user?.id]);
+
+  const ensureUserSynced = useCallback(async () => {
+    if (!isSignedIn || !user) return false;
+    if (syncedClerkUserId === user.id) return true;
+    if (syncUserPromiseRef.current) return syncUserPromiseRef.current;
+
+    const syncRequest = (async () => {
+      const token = await getToken();
+      const res = await fetch(endpoints.syncUser, {
+        method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
+        body: JSON.stringify({
+          email: user.primaryEmailAddress?.emailAddress ?? null,
+          name: user.fullName ?? user.firstName ?? "",
+          imageUrl: user.imageUrl ?? "",
+        }),
       });
-      const data = await res.json();
-      setEntries(Array.isArray(data) ? data : []);
-    } catch (error) {
-      console.log(error);
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to sync user");
+      }
+
+      setSyncedClerkUserId(user.id);
+      return true;
+    })();
+
+    syncUserPromiseRef.current = syncRequest;
+
+    try {
+      return await syncRequest;
     } finally {
-      setLoading(false);
+      syncUserPromiseRef.current = null;
     }
-  }, [getToken]);
+  }, [getToken, isSignedIn, syncedClerkUserId, user]);
+
+  const fetchEntries = useCallback(async (options = {}) => {
+    const force = typeof options === "boolean" ? options : options.force ?? false;
+
+    if (fetchEntriesPromiseRef.current && !force) {
+      return fetchEntriesPromiseRef.current;
+    }
+
+    const request = (async () => {
+      setLoading(true);
+      try {
+        const didSync = await ensureUserSynced();
+        if (!didSync) {
+          setEntries([]);
+          return [];
+        }
+
+        const token = await getToken();
+        const res = await fetch(endpoints.fetchEntries, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        const normalizedEntries = Array.isArray(data) ? data : [];
+        setEntries(normalizedEntries);
+        return normalizedEntries;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      } finally {
+        setLoading(false);
+        fetchEntriesPromiseRef.current = null;
+      }
+    })();
+
+    fetchEntriesPromiseRef.current = request;
+    return request;
+  }, [ensureUserSynced, getToken]);
 
   // useEffect(() => {
   //   fetchEntries();
@@ -37,6 +117,7 @@ export function EntriesProvider({ children }) {
   
   const addEntry = async (payload) => {
     try {
+      await ensureUserSynced();
       const token = await getToken({ skipCache: true });
       const res = await fetch(endpoints.createEntry, {
         method: "POST",
@@ -47,17 +128,22 @@ export function EntriesProvider({ children }) {
         body: JSON.stringify(payload),
       });
       const created = await res.json();
+      if (!res.ok) {
+        throw new Error(created.error || "Failed to create entry");
+      }
       // setEntries((prev) =>
       //   Array.isArray(prev) ? [created, ...prev] : [created]
       // );
       return created;
     } catch (error) {
       console.error("addEntry", error);
+      throw error;
     }
   };
 
   const updateEntry = async (id, payload) => {
     try {
+      await ensureUserSynced();
       const token = await getToken();
       const res = await fetch(endpoints.updateEntry(id),
         {
@@ -71,6 +157,9 @@ export function EntriesProvider({ children }) {
       );
 
       const updated = await res.json();
+      if (!res.ok) {
+        throw new Error(updated.error || "Failed to update entry");
+      }
 
       setEntries((prev) =>
         prev.map((entry) => (entry.id === id ? updated : entry))
@@ -78,10 +167,12 @@ export function EntriesProvider({ children }) {
       return updated;
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
   const deleteEntry = async (id) => {
     try {
+      await ensureUserSynced();
       const token = await getToken();
       const res = await fetch(endpoints.deleteEntry(id),
         {
@@ -98,7 +189,10 @@ export function EntriesProvider({ children }) {
       }
       setEntries((prev) => prev.filter((entry) => entry.id !== id));
       toast.success("Entry deleted successfully!");
-    } catch (error) {}
+    } catch (error) {
+      console.error("deleteEntry", error);
+      throw error;
+    }
   };
   return (
     <EntriesContext.Provider

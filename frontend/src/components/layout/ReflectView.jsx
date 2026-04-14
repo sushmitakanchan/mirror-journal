@@ -1,15 +1,55 @@
-import React , {useRef, useEffect} from 'react'
+import React , {useRef, useEffect, useMemo} from 'react'
 import DOMPurify from "dompurify";
 import { Link } from 'react-router-dom';
 import image from '../../assets/image.png'
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 
+const convertImagesToUrls = (html = "") => {
+  if (!html || typeof window === "undefined") return html;
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+
+  doc.querySelectorAll("img").forEach((img) => {
+    const src = img.getAttribute("src");
+    const replacement = doc.createElement("p");
+
+    if (src) {
+      let linkLabel = "Attached image";
+
+      try {
+        const url = new URL(src);
+        const pathSegment = url.pathname.split("/").filter(Boolean).pop();
+        const decodedSegment = pathSegment ? decodeURIComponent(pathSegment) : "";
+        linkLabel = decodedSegment || "Attached image";
+      } catch {
+        linkLabel = "Attached image";
+      }
+
+      const link = doc.createElement("a");
+      link.href = src;
+      link.textContent = `📎 ${linkLabel}`;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.style.wordBreak = "break-all";
+      replacement.appendChild(link);
+    } else {
+      replacement.textContent = "Image";
+    }
+
+    img.replaceWith(replacement);
+  });
+
+  return doc.body.innerHTML;
+};
+
 const ReflectView = () => {
     const {id} = useParams();
     const location = useLocation();
     const entry =  location.state?.entry;
     const initialAiReply = entry?.aiReply || "";
+    const entryContentHtml = useMemo(() => convertImagesToUrls(entry?.content || ""), [entry?.content]);
     
     // const [followUpReply, setFollowUpReply] = useState("")
     // const [userMessage, setUserMessage] = useState(null);
@@ -17,7 +57,7 @@ const ReflectView = () => {
     const [loading, setLoading] = useState(false);
      const scrollRef = useRef(null);
     const [messages, setMessages] = useState([
-      {from:"user", html:entry.content || ""},
+      {from:"user", html:entryContentHtml},
       ...(initialAiReply ? [{from: "ai", text:initialAiReply}]:[]),
       {from:"ai", text:"Do you want to dive deeper into this?"},
     ])
@@ -61,7 +101,7 @@ const ReflectView = () => {
         <img
           src={image}
           alt="Decorative"
-          className="w-full h-4/4 object-[30%_50%]" 
+          className="reflect-hero-image w-full h-4/4 object-[30%_50%]" 
         />
       </div>
       <div className="md:w-3/4 w-full h-[70vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden">

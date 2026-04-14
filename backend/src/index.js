@@ -8,6 +8,7 @@ import cors from "cors";
 import { clerkMiddleware } from "@clerk/express"; 
 import userRoutes from '../routes/user.routes.js';
 import entryRoutes from '../routes/entries.routes.js'
+import uploadRoutes from "../routes/uploads.routes.js";
 
 const app = express();
 app.use(express.json());
@@ -22,8 +23,16 @@ app.use(
     })
 )
 
+app.get('/health', (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        service: "backend",
+    });
+});
+
 app.use('/users', userRoutes)
 app.use('/entries', entryRoutes)
+app.use('/uploads', uploadRoutes)
 app.use('/api', reflectRoutes)
 
 const PORT = process.env.PORT || 3000;

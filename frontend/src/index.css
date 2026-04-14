@@ -149,3 +149,117 @@
   z-index: 9999 !important;
   position: fixed !important;
 }
+
+.archive-entry-content img {
+  width: 220px;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  margin-top: 1rem;
+  border-radius: 18px;
+}
+
+.archive-entry-content p:has(img) {
+  margin: 0;
+}
+
+.archive-entry-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.archive-entry-image {
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.archive-entry-image-wrapper:hover .archive-entry-image {
+  filter: grayscale(1) brightness(0.72);
+}
+
+.archive-entry-image-delete {
+  position: absolute;
+  top: 1.5rem;
+  right: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: #cf6017;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 180ms ease, transform 180ms ease, background-color 180ms ease;
+}
+
+.archive-entry-image-wrapper:hover .archive-entry-image-delete {
+  opacity: 1;
+}
+
+.archive-entry-image-delete:hover {
+  background: #ffffff;
+  transform: scale(1.04);
+}
+
+@keyframes reflect-hero-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) scale(1.015);
+  }
+}
+
+.reflect-hero-image {
+  animation: reflect-hero-drift 6.2s ease-in-out infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes sticker-float {
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.03);
+  }
+}
+
+@keyframes sticker-wobble {
+  0%,
+  100% {
+    rotate: -3deg;
+  }
+  50% {
+    rotate: 3deg;
+  }
+}
+
+.sticker-float {
+  animation: sticker-float 3.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.sticker-wobble {
+  animation: sticker-wobble 4.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes affirmation-swipe-out {
+  0% {
+    transform: translateX(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(82px) rotate(12deg) scale(0.98);
+    opacity: 0;
+  }
+}
+
+.affirmation-swipe-out {
+  animation: affirmation-swipe-out 260ms ease-out forwards;
+}
