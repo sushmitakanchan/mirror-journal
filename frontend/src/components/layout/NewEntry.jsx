@@ -114,19 +114,19 @@ const NewEntry = ({isEditMode = false}) => {
 
 
   return (
-    <div className="mx-50">
+    <div className="mx-50 dark:text-[#f1e3d5]">
       <div className="container py-4">
-        <Link to="/dashboard" className="text-md text-orange-600 hover:text-orange-700 cursor-pointer">
+        <Link to="/dashboard" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e2b58f] dark:hover:text-[#f2c7a0]">
           ← Back to Dashboard
         </Link>
       </div>
 
-      <form className="space-y-2 mx-auto text-black" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-2 mx-auto text-black dark:text-[#f1e3d5]" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-5xl md:text-6xl gradient-title">What's on your mind?</h1>
         {isLoading && <BarLoader color="orange" width={"100%"} />}
 
         <div className="space-y-2">
-          <label className="text-medium font-medium text-black dark:text-white">Title:</label>
+          <label className="text-medium font-medium text-black dark:text-[#eddcc9]">Title:</label>
           <Input
             {...register("title")}
             placeholder="Give your entry a title..."
@@ -136,7 +136,7 @@ const NewEntry = ({isEditMode = false}) => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-medium font-medium text-black dark:text-white">How are you feeling?</label>
+          <label className="text-medium font-medium text-black dark:text-[#eddcc9]">How are you feeling?</label>
 
           <Controller
           key={selectedMoodId || "mood-controller"} 
@@ -152,7 +152,7 @@ const NewEntry = ({isEditMode = false}) => {
                   <SelectContent>
                     {Object.values(MOODS).map((mood) => (
                       <SelectItem key={mood.id} value={mood.id}>
-                        <span className="flex items-center gap-2 text-black dark:text-white">
+                        <span className="flex items-center gap-2 text-black dark:text-[#f1e3d5]">
                           {mood.emoji} {mood.label}
                         </span>
                       </SelectItem>
@@ -171,7 +171,7 @@ const NewEntry = ({isEditMode = false}) => {
         </div>
 
         {/* Editor area: use Controller for `content` so `field` is available */}
-        <div className="text-black flex items-start mr-30 bg-orange-100 dark:bg-zinc-900 shadow-xl rounded-2xl p-4 dark:text-white">
+        <div className="flex items-start mr-30 rounded-2xl bg-orange-100 p-4 text-black shadow-xl dark:bg-[linear-gradient(135deg,rgba(42,29,24,0.96),rgba(31,22,19,0.92))] dark:text-[#f1e3d5] dark:shadow-[0_20px_48px_rgba(7,4,3,0.42)] dark:ring-1 dark:ring-[#4b3126]">
           <Controller
             name="content"
             control={control}

@@ -95,12 +95,12 @@ const truncateText = (value, maxLength = 120) => {
 };
 
 const getHeatmapTone = (score) => {
-  if (score == null) return 'border-orange-100/80 bg-white/55 text-orange-300';
-  if (score >= 8.5) return 'border-orange-300 bg-orange-200 text-orange-950';
-  if (score >= 7) return 'border-amber-200 bg-amber-100 text-orange-900';
-  if (score >= 5) return 'border-pink-200 bg-rose-100 text-rose-900';
-  if (score >= 3.5) return 'border-orange-300 bg-orange-100 text-orange-900';
-  return 'border-red-200 bg-red-100 text-red-900';
+  if (score == null) return 'border-orange-100/80 bg-white/55 text-orange-300 dark:border-[#43302a] dark:bg-[#261b18] dark:text-[#95776b]';
+  if (score >= 8.5) return 'border-orange-300 bg-orange-200 text-orange-950 dark:border-[#8c5d42] dark:bg-[#5b3a2a] dark:text-[#ffe0bf]';
+  if (score >= 7) return 'border-amber-200 bg-amber-100 text-orange-900 dark:border-[#806143] dark:bg-[#4f3b2a] dark:text-[#f6dbb5]';
+  if (score >= 5) return 'border-pink-200 bg-rose-100 text-rose-900 dark:border-[#6d4750] dark:bg-[#493038] dark:text-[#f0d0d8]';
+  if (score >= 3.5) return 'border-orange-300 bg-orange-100 text-orange-900 dark:border-[#73493c] dark:bg-[#412924] dark:text-[#f0c4b0]';
+  return 'border-red-200 bg-red-100 text-red-900 dark:border-[#6c3c39] dark:bg-[#3c2222] dark:text-[#efc0bc]';
 };
 
 const getCalendarDays = (monthDate) => {
@@ -333,14 +333,14 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
 };
 
 const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
-  <Card className="rounded-[32px] border-orange-200/70 bg-gradient-to-br from-white via-orange-50/90 to-rose-50/85 shadow-[0_20px_55px_rgba(255,135,82,0.14)]">
+  <Card className="rounded-[32px] border-orange-200/70 bg-gradient-to-br from-white via-orange-50/90 to-rose-50/85 shadow-[0_20px_55px_rgba(255,135,82,0.14)] dark:border-[#4a3128] dark:bg-[linear-gradient(145deg,rgba(43,29,24,0.96),rgba(32,22,19,0.92))] dark:shadow-[0_24px_56px_rgba(7,4,3,0.42)]">
     <CardContent className="px-6 py-6">
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500">Recent entries</p>
-          <h3 className="mt-3 text-2xl font-semibold text-orange-950">Your latest reflections, in timeline form</h3>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500 dark:text-[#e1b18e]">Recent entries</p>
+          <h3 className="mt-3 text-2xl font-semibold text-orange-950 dark:text-[#f3e5d6]">Your latest reflections, in timeline form</h3>
         </div>
-        <div className="rounded-[24px] bg-gradient-to-br from-orange-500 to-rose-500 p-4 text-white shadow-lg">
+        <div className="rounded-[24px] bg-gradient-to-br from-orange-500 to-rose-500 p-4 text-white shadow-lg dark:from-[#b96643] dark:to-[#8d4b58]">
           <TrendingUp className="h-7 w-7" />
         </div>
       </div>
@@ -349,18 +349,18 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
         <div className="mt-6 space-y-6">
           {recentEntriesByDate.map((group) => (
             <div key={group.dateKey} className="grid gap-4 md:grid-cols-[88px_1fr] md:gap-5">
-              <div className="rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,239,225,0.95))] px-4 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]">
-                <p className="text-2xl font-semibold leading-none text-[#5f240e]">{group.dayNumber}</p>
-                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c06a40]">
+              <div className="rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,239,225,0.95))] px-4 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:bg-[linear-gradient(180deg,rgba(61,42,34,0.95),rgba(40,28,23,0.98))] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+                <p className="text-2xl font-semibold leading-none text-[#5f240e] dark:text-[#f3dfc8]">{group.dayNumber}</p>
+                <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c06a40] dark:text-[#d8a67f]">
                   {group.monthLabel}
                 </p>
-                <p className="mt-1 text-[11px] text-[#d18b63]">{group.yearLabel}</p>
+                <p className="mt-1 text-[11px] text-[#d18b63] dark:text-[#ab8974]">{group.yearLabel}</p>
               </div>
 
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <h4 className="text-xl font-semibold text-[#5f240e]">{group.weekdayLabel}</h4>
-                  <p className="text-sm text-[#bf7349]">{group.entries.length} entr{group.entries.length === 1 ? 'y' : 'ies'}</p>
+                  <h4 className="text-xl font-semibold text-[#5f240e] dark:text-[#f3e2d0]">{group.weekdayLabel}</h4>
+                  <p className="text-sm text-[#bf7349] dark:text-[#cb9c80]">{group.entries.length} entr{group.entries.length === 1 ? 'y' : 'ies'}</p>
                 </div>
 
                 {group.entries.map((entry) => (
@@ -368,12 +368,12 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
                     key={entry.id}
                     type="button"
                     onClick={() => navigate(`/reflect/${entry.id}`, { state: { entry } })}
-                    className="w-full rounded-[24px] border border-white/70 bg-white/88 px-5 py-4 text-left shadow-[0_14px_32px_rgba(192,201,214,0.22)] transition hover:-translate-y-0.5"
+                    className="w-full rounded-[24px] border border-white/70 bg-white/88 px-5 py-4 text-left shadow-[0_14px_32px_rgba(192,201,214,0.22)] transition hover:-translate-y-0.5 dark:border-[#4b3329] dark:bg-[#2a1d19] dark:shadow-[0_16px_34px_rgba(8,4,3,0.32)]"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <h5 className="truncate text-lg font-semibold text-[#5f240e]">{entry.title}</h5>
-                        <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-[#c48761]">
+                        <h5 className="truncate text-lg font-semibold text-[#5f240e] dark:text-[#f4e7d8]">{entry.title}</h5>
+                        <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-[#c48761] dark:text-[#b9967d]">
                           {entry.createdDate.toLocaleTimeString('en-US', {
                             hour: 'numeric',
                             minute: '2-digit',
@@ -381,14 +381,14 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
                         </p>
                       </div>
                       {entry.moodMeta ? (
-                        <div className="rounded-full bg-[#f8f1e7] px-3 py-1 text-xs font-medium text-[#7d5f4f]">
+                        <div className="rounded-full bg-[#f8f1e7] px-3 py-1 text-xs font-medium text-[#7d5f4f] dark:bg-[#3a2a24] dark:text-[#ecd6c1]">
                           {entry.moodMeta.emoji} {entry.moodMeta.label}
                         </div>
                       ) : null}
                     </div>
 
                     {entry.preview ? (
-                      <p className="mt-3 line-clamp-2 text-sm leading-7 text-[#6d2e17]/80">
+                      <p className="mt-3 line-clamp-2 text-sm leading-7 text-[#6d2e17]/80 dark:text-[#dcc8b8]/80">
                         {entry.preview}
                       </p>
                     ) : null}
@@ -399,9 +399,9 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
           ))}
         </div>
       ) : (
-        <div className="mt-6 rounded-[26px] bg-white/68 p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]">
-          <p className="text-base font-medium text-[#642711]">No entries yet</p>
-          <p className="mt-2 text-sm leading-7 text-[#8f4e2d]">
+        <div className="mt-6 rounded-[26px] bg-white/68 p-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] dark:bg-[#271b17] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+          <p className="text-base font-medium text-[#642711] dark:text-[#f0dfce]">No entries yet</p>
+          <p className="mt-2 text-sm leading-7 text-[#8f4e2d] dark:text-[#c3a48d]">
             Start with one note and this section will fill with your latest journal titles.
           </p>
         </div>
@@ -431,26 +431,26 @@ const MiniCalendarPanel = ({
   const isSelected = (day) => day && ((draftStart && isSameDay(day, draftStart)) || (draftEnd && isSameDay(day, draftEnd)));
 
   return (
-    <div className="absolute right-0 top-14 z-30 w-[320px] rounded-[28px] border border-orange-200 bg-white/96 p-4 shadow-2xl backdrop-blur-xl">
+    <div className="absolute right-0 top-14 z-30 w-[320px] rounded-[28px] border border-orange-200 bg-white/96 p-4 shadow-2xl backdrop-blur-xl dark:border-[#4b3128] dark:bg-[#261b18]/98 dark:shadow-[0_26px_58px_rgba(6,3,2,0.5)]">
       <div className="flex items-center justify-between">
         <button
           type="button"
           onClick={() => onMonthChange(addDays(startOfMonth(monthDate), -1))}
-          className="rounded-full border border-orange-100 p-2 text-orange-700 transition hover:bg-orange-50"
+          className="rounded-full border border-orange-100 p-2 text-orange-700 transition hover:bg-orange-50 dark:border-[#4a3127] dark:text-[#e4b58e] dark:hover:bg-[#34231c]"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
-        <p className="text-sm font-semibold text-orange-950">{monthFormatter.format(monthDate)}</p>
+        <p className="text-sm font-semibold text-orange-950 dark:text-[#f0e0cf]">{monthFormatter.format(monthDate)}</p>
         <button
           type="button"
           onClick={() => onMonthChange(addDays(endOfMonth(monthDate), 1))}
-          className="rounded-full border border-orange-100 p-2 text-orange-700 transition hover:bg-orange-50"
+          className="rounded-full border border-orange-100 p-2 text-orange-700 transition hover:bg-orange-50 dark:border-[#4a3127] dark:text-[#e4b58e] dark:hover:bg-[#34231c]"
         >
           <ChevronRight className="h-4 w-4" />
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[11px] font-semibold uppercase tracking-wide text-orange-500">
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-[11px] font-semibold uppercase tracking-wide text-orange-500 dark:text-[#d8a57d]">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((label) => (
           <span key={label}>{label}</span>
         ))}
@@ -465,10 +465,10 @@ const MiniCalendarPanel = ({
               onClick={() => onSelectDate(day)}
               className={`flex h-10 items-center justify-center rounded-2xl text-sm font-medium transition ${
                 isSelected(day)
-                  ? 'bg-orange-500 text-white'
+                  ? 'bg-orange-500 text-white dark:bg-[#c9764d] dark:text-[#1f130f]'
                   : isInRange(day)
-                    ? 'bg-orange-100 text-orange-900'
-                    : 'text-orange-800 hover:bg-orange-50'
+                    ? 'bg-orange-100 text-orange-900 dark:bg-[#4d3125] dark:text-[#f0ddc8]'
+                    : 'text-orange-800 hover:bg-orange-50 dark:text-[#d7b49d] dark:hover:bg-[#33221b]'
               }`}
             >
               {day.getDate()}
@@ -479,9 +479,9 @@ const MiniCalendarPanel = ({
         )}
       </div>
 
-      <div className="mt-4 rounded-2xl bg-orange-50 p-3 text-sm text-orange-900">
+      <div className="mt-4 rounded-2xl bg-orange-50 p-3 text-sm text-orange-900 dark:bg-[#33231c] dark:text-[#f0dfcf]">
         <p className="font-medium">Selected range</p>
-        <p className="mt-1 text-orange-700">
+        <p className="mt-1 text-orange-700 dark:text-[#d4ae92]">
           {draftStart && draftEnd ? formatRangeLabel(draftStart, draftEnd) : 'Choose a start and end date'}
         </p>
       </div>
@@ -490,7 +490,7 @@ const MiniCalendarPanel = ({
         <button
           type="button"
           onClick={onReset}
-          className="rounded-full px-4 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-50"
+          className="rounded-full px-4 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-50 dark:text-[#dcb08b] dark:hover:bg-[#34231c]"
         >
           Reset
         </button>
@@ -498,7 +498,7 @@ const MiniCalendarPanel = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full px-4 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-50"
+            className="rounded-full px-4 py-2 text-sm font-medium text-orange-700 transition hover:bg-orange-50 dark:text-[#dcb08b] dark:hover:bg-[#34231c]"
           >
             Cancel
           </button>
@@ -523,40 +523,40 @@ const MoodAnalyticsGraph = ({ entryCount, chartData }) => {
   }, 0);
 
   return (
-    <Card className="overflow-hidden rounded-[34px] border-[#ffb28d]/80 bg-[linear-gradient(135deg,rgba(255,253,240,0.96),rgba(255,235,212,0.94)_40%,rgba(255,197,167,0.92)_72%,rgba(255,166,193,0.9))] shadow-[0_26px_80px_rgba(255,128,78,0.22)]">
+    <Card className="overflow-hidden rounded-[34px] border-[#ffb28d]/80 bg-[linear-gradient(135deg,rgba(255,253,240,0.96),rgba(255,235,212,0.94)_40%,rgba(255,197,167,0.92)_72%,rgba(255,166,193,0.9))] shadow-[0_26px_80px_rgba(255,128,78,0.22)] dark:border-[#5a3b2f] dark:bg-[linear-gradient(145deg,rgba(53,37,29,0.96),rgba(46,31,26,0.94)_42%,rgba(61,40,32,0.94)_74%,rgba(69,41,49,0.9))] dark:shadow-[0_28px_72px_rgba(5,3,2,0.46)]">
       <CardContent className="px-6 py-6 sm:px-7 sm:py-7">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#ff7a45] shadow-sm">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#ff7a45] shadow-sm dark:bg-[#3d2b25] dark:text-[#efb78f]">
               <TrendingUp className="h-4 w-4" />
               Mood analytics
             </div>
             <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl">
+              <h2 className="text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl dark:text-[#f2e4d6]">
                 Your emotional rhythm
               </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#7b3a21]/80 sm:text-base">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#7b3a21]/80 sm:text-base dark:text-[#d7bba8]/85">
                 A web-style daily mood graph highlighting how your journal energy moves across the selected range.
               </p>
             </div>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-1">
-            <div className="rounded-[24px] bg-white/75 px-4 py-3 text-center shadow-sm ring-1 ring-white/60 backdrop-blur-sm">
-              <p className="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff7a45]">Entries</p>
-              <p className="mt-2 text-3xl font-semibold text-[#5f240e]">{entryCount}</p>
+            <div className="rounded-[24px] bg-white/75 px-4 py-3 text-center shadow-sm ring-1 ring-white/60 backdrop-blur-sm dark:bg-[#3a2923] dark:ring-[#5a4033]">
+              <p className="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.18em] text-[#ff7a45] dark:text-[#efb58a]">Entries</p>
+              <p className="mt-2 text-3xl font-semibold text-[#5f240e] dark:text-[#f3e2cf]">{entryCount}</p>
             </div>
           </div>
         </div>
 
-        <div className="mt-5 rounded-[30px] border border-white/55 bg-[#fff9f2]/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-sm sm:p-5">
+        <div className="mt-5 rounded-[30px] border border-white/55 bg-[#fff9f2]/70 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] backdrop-blur-sm sm:p-5 dark:border-[#5a4035] dark:bg-[#2b1e19]/76 dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
           {chartData.length ? (
             <>
               <div className="mb-3 flex items-center justify-between gap-3">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c55d35]">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#c55d35] dark:text-[#e8b48b]">
                   Daily bars
                 </p>
-                <p className="text-sm text-[#8f4a2c]">
+                <p className="text-sm text-[#8f4a2c] dark:text-[#cba98f]">
                   Strongest day {strongestDay ? strongestDay.toFixed(1) : '—'}
                 </p>
               </div>
@@ -612,9 +612,9 @@ const MoodAnalyticsGraph = ({ entryCount, chartData }) => {
               </div>
             </>
           ) : (
-            <div className="rounded-[24px] border border-dashed border-[#f0ba97] bg-white/65 p-8 text-center">
-              <p className="text-lg font-semibold text-[#6b2f18]">No mood bars yet</p>
-              <p className="mt-2 text-sm text-[#935037]">
+            <div className="rounded-[24px] border border-dashed border-[#f0ba97] bg-white/65 p-8 text-center dark:border-[#5e4334] dark:bg-[#281c18]">
+              <p className="text-lg font-semibold text-[#6b2f18] dark:text-[#f1dfcd]">No mood bars yet</p>
+              <p className="mt-2 text-sm text-[#935037] dark:text-[#c7a18a]">
                 Add a few journal entries and this graph will light up with your daily rhythm.
               </p>
             </div>
@@ -644,18 +644,18 @@ const SegmentedMoodMeter = ({ averageMood, todayEnergy }) => {
   });
 
   return (
-    <Card className="overflow-hidden rounded-[32px] border-[#ffbc97]/80 bg-[linear-gradient(160deg,#fffaf0_0%,#ffe7d5_42%,#ffd6b6_100%)] shadow-[0_20px_60px_rgba(255,138,76,0.2)]">
+    <Card className="overflow-hidden rounded-[32px] border-[#ffbc97]/80 bg-[linear-gradient(160deg,#fffaf0_0%,#ffe7d5_42%,#ffd6b6_100%)] shadow-[0_20px_60px_rgba(255,138,76,0.2)] dark:border-[#5a3c2f] dark:bg-[linear-gradient(160deg,#36241d_0%,#2b1d18_42%,#422d24_100%)] dark:shadow-[0_24px_58px_rgba(6,3,2,0.45)]">
       <CardContent className="px-6 py-6">
         <div className="flex items-center justify-between gap-4">
-          <div className="rounded-[22px] bg-white/70 px-4 py-2 shadow-sm ring-1 ring-white/70">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#df6d3f]">Today's energy</p>
+          <div className="rounded-[22px] bg-white/70 px-4 py-2 shadow-sm ring-1 ring-white/70 dark:bg-[#3a2822] dark:ring-[#5a4033]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#df6d3f] dark:text-[#e8b58d]">Today's energy</p>
           </div>
-          <div className="rounded-[22px] bg-gradient-to-br from-[#ff8f54] to-[#ff6fa0] p-3 text-white shadow-lg">
+          <div className="rounded-[22px] bg-gradient-to-br from-[#ff8f54] to-[#ff6fa0] p-3 text-white shadow-lg dark:from-[#c96e47] dark:to-[#9a596b]">
             <Sparkles className="h-5 w-5" />
           </div>
         </div>
 
-        <div className="mt-6 rounded-[28px] bg-[#2d130d] px-4 py-5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <div className="mt-6 rounded-[28px] bg-[#2d130d] px-4 py-5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] dark:bg-[#1d1412]">
           <div className="relative mx-auto flex max-w-[280px] flex-col items-center">
             <svg viewBox="0 0 240 150" className="h-[210px] w-full overflow-visible">
               {meterSegments.map((segment, index) => (
@@ -683,11 +683,11 @@ const SegmentedMoodMeter = ({ averageMood, todayEnergy }) => {
             </svg>
 
             <div className="-mt-[118px] flex flex-col items-center text-center">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55">Mood meter</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55 dark:text-[#d4b8a3]/55">Mood meter</p>
               <p className="mt-2 text-5xl font-semibold text-white">
                 {averageMood == null ? '—' : `${Math.round(fillPercent)}%`}
               </p>
-              <p className="mt-3 text-sm font-medium text-[#ffd98b]">
+              <p className="mt-3 text-sm font-medium text-[#ffd98b] dark:text-[#f2c89d]">
                 {energyState?.emoji || '•'} {energyState?.label || "Today's energy"}
               </p>
             </div>
@@ -698,12 +698,12 @@ const SegmentedMoodMeter = ({ averageMood, todayEnergy }) => {
             <span>100</span>
           </div>
 
-          <div className="mt-5 rounded-[22px] bg-white/7 px-4 py-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/50">Today's energy</p>
-            <p className="mt-2 text-lg font-semibold text-[#ffe39f]">
+          <div className="mt-5 rounded-[22px] bg-white/7 px-4 py-3 dark:bg-[#2c1f1b]">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/50 dark:text-[#ccb19f]/55">Today's energy</p>
+            <p className="mt-2 text-lg font-semibold text-[#ffe39f] dark:text-[#f3d3ab]">
               {energyState?.emoji || '•'} {energyState?.label || 'Waiting'}
             </p>
-            <p className="mt-2 text-sm leading-6 text-white/68">
+            <p className="mt-2 text-sm leading-6 text-white/68 dark:text-[#d7bca8]/78">
               {averageMood == null
                 ? 'Add a mood-tagged entry and the gauge will light up with your current energy.'
                 : `Your average mood score is translating to ${Math.round(fillPercent)}%, giving today's energy a ${energyState?.tone || 'steady'} feel.`}
@@ -986,12 +986,12 @@ const Dashboard = () => {
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mb-6 rounded-[28px] border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,251,245,0.98),rgba(255,236,217,0.96)_55%,rgba(255,222,208,0.92))] px-6 py-5 shadow-[0_18px_45px_rgba(255,142,90,0.14)]">
-        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500">Welcome back</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl">
+      <div className="mb-6 rounded-[28px] border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,251,245,0.98),rgba(255,236,217,0.96)_55%,rgba(255,222,208,0.92))] px-6 py-5 shadow-[0_18px_45px_rgba(255,142,90,0.14)] dark:border-[#50352a] dark:bg-[linear-gradient(145deg,rgba(50,34,28,0.96),rgba(40,28,23,0.94)_55%,rgba(57,37,32,0.9))] dark:shadow-[0_22px_52px_rgba(7,4,3,0.42)]">
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500 dark:text-[#e3b48d]">Welcome back</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl dark:text-[#f3e5d7]">
           {greeting}
         </h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-[#8c5235] sm:text-base">
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-[#8c5235] sm:text-base dark:text-[#cfb29d]">
           Your journal space is ready. Take a look at your recent reflections and emotional rhythm.
         </p>
       </div>
@@ -1011,14 +1011,14 @@ const Dashboard = () => {
         <div className="grid gap-6">
           <RecentEntriesPanel recentEntriesByDate={dashboardData.recentEntriesByDate} navigate={navigate} />
 
-          <Card className="relative overflow-visible rounded-[32px] border-orange-200/70 bg-gradient-to-br from-white via-orange-50/80 to-rose-50/90 shadow-[0_20px_60px_rgba(255,135,82,0.14)]">
+          <Card className="relative overflow-visible rounded-[32px] border-orange-200/70 bg-gradient-to-br from-white via-orange-50/80 to-rose-50/90 shadow-[0_20px_60px_rgba(255,135,82,0.14)] dark:border-[#4d3429] dark:bg-[linear-gradient(145deg,rgba(42,29,24,0.96),rgba(33,23,20,0.94)_52%,rgba(47,30,28,0.92))] dark:shadow-[0_24px_56px_rgba(7,4,3,0.42)]">
             <CardHeader>
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="space-y-2">
-                  <CardTitle className="text-3xl font-semibold tracking-tight text-orange-950">
+                  <CardTitle className="text-3xl font-semibold tracking-tight text-orange-950 dark:text-[#f3e5d7]">
                     Emotional Weather
                   </CardTitle>
-                  <CardDescription className="text-sm text-orange-900/70">
+                  <CardDescription className="text-sm text-orange-900/70 dark:text-[#cfb29e]">
                     {currentRange.label}
                   </CardDescription>
                 </div>
@@ -1029,8 +1029,8 @@ const Dashboard = () => {
                     onClick={() => setPresetRange(7)}
                     className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                       rangeSelection.mode === 'preset' && rangeSelection.days === 7
-                        ? 'bg-orange-500 text-white shadow-sm'
-                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50'
+                        ? 'bg-orange-500 text-white shadow-sm dark:bg-[#c97750] dark:text-[#1d120e]'
+                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50 dark:bg-[#2f211c] dark:text-[#efc19c] dark:ring-[#52372b] dark:hover:bg-[#3a2822]'
                     }`}
                   >
                     7 days
@@ -1040,8 +1040,8 @@ const Dashboard = () => {
                     onClick={() => setPresetRange(30)}
                     className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                       rangeSelection.mode === 'preset' && rangeSelection.days === 30
-                        ? 'bg-orange-500 text-white shadow-sm'
-                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50'
+                        ? 'bg-orange-500 text-white shadow-sm dark:bg-[#c97750] dark:text-[#1d120e]'
+                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50 dark:bg-[#2f211c] dark:text-[#efc19c] dark:ring-[#52372b] dark:hover:bg-[#3a2822]'
                     }`}
                   >
                     30 days
@@ -1051,8 +1051,8 @@ const Dashboard = () => {
                     onClick={openCalendar}
                     className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
                       rangeSelection.mode === 'custom'
-                        ? 'bg-[#1f120f] text-white shadow-sm'
-                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50'
+                        ? 'bg-[#1f120f] text-white shadow-sm dark:bg-[#cba184] dark:text-[#211510]'
+                        : 'bg-white/80 text-orange-700 ring-1 ring-orange-200 hover:bg-orange-50 dark:bg-[#2f211c] dark:text-[#efc19c] dark:ring-[#52372b] dark:hover:bg-[#3a2822]'
                     }`}
                   >
                     <CalendarDays className="h-4 w-4" />

@@ -90,7 +90,7 @@ const ReflectView = () => {
   return (
     <div>
       <div className="px-30">
-              <Link to="/archives" className="text-md text-orange-600 hover:text-orange-700 cursor-pointer dark:text-orange-300 dark:hover:text-orange-400">
+              <Link to="/archives" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e0b38f] dark:hover:text-[#f3c69c]">
                 ← Back to Archives
               </Link>
     </div>
@@ -104,21 +104,21 @@ const ReflectView = () => {
           className="reflect-hero-image w-full h-4/4 object-[30%_50%]" 
         />
       </div>
-      <div className="md:w-3/4 w-full h-[70vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden">
+      <div className="md:w-3/4 w-full h-[70vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden dark:shadow-[0_24px_60px_rgba(5,3,2,0.45)]">
         {/* Glass overlay panel */}
         <div className="absolute inset-0 p-6 flex flex-col">
           {/* Frosted glass panel itself */}
-          <div className="relative z-10 flex-1 rounded-2xl p-6 backdrop-blur-sm bg-white/10 border border-white/10 shadow-inner flex flex-col text-black dark:text-white">
+          <div className="relative z-10 flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/10 p-6 text-black shadow-inner backdrop-blur-sm dark:border-[#4b3229] dark:bg-[linear-gradient(180deg,rgba(42,29,24,0.82),rgba(30,21,18,0.9))] dark:text-[#f1e3d5]">
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center text-lg">AI</div>
+                <div className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center text-lg dark:bg-[#5a3a2d] dark:text-[#f7e4d2]">AI</div>
                 <div>
-                  <div className= "text-black dark:text-white font-semibold">Reflect Chat</div>
-                  <div className="text-black dark:text-white text-sm">Your private assistant</div>
+                  <div className= "text-black dark:text-[#f4e7d7] font-semibold">Reflect Chat</div>
+                  <div className="text-black dark:text-[#cfb4a1] text-sm">Your private assistant</div>
                 </div>
               </div>
-              <div className="text-sm text-orange-600 dark:text-white">Online</div>
+              <div className="text-sm text-orange-600 dark:text-[#efbd97]">Online</div>
             </div>
 
             {/* Messages area */}
@@ -126,7 +126,9 @@ const ReflectView = () => {
             {messages.map((m, i) => {
               const user = m.from === "user";
               const base = "max-w-[80%] rounded-xl p-3";
-              const cls = user ? `${base} ml-auto bg-amber-100` : `${base} bg-white/80`;
+              const cls = user
+                ? `${base} ml-auto bg-amber-100 dark:bg-[#4f3426] dark:text-[#f8e6d5]`
+                : `${base} bg-white/80 dark:bg-[#2d1f1b] dark:text-[#f1e3d5]`;
               return (
                 <div key={i} className={cls}>
                   {m.html ? (
@@ -138,7 +140,7 @@ const ReflectView = () => {
               )
             })}
             {loading && (
-            <div className="max-w-[80%] bg-white/10 text-black dark:text-white rounded-xl p-3">
+            <div className="max-w-[80%] rounded-xl bg-white/10 p-3 text-black dark:bg-[#35251f] dark:text-[#f1e3d5]">
             Reflecting...
             </div>
             )}
@@ -156,12 +158,12 @@ const ReflectView = () => {
                 value={input}
                 onChange={(e)=>setInput(e.target.value)}
                 placeholder="Type a message..."
-                className="flex-1 bg-white/10 placeholder-black/60 text-black dark:text-white rounded-full px-4 py-2 outline border border-white/10 focus:border-white/20"
+                className="flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-black outline placeholder-black/60 focus:border-white/20 dark:border-[#4d3429] dark:bg-[#241916] dark:text-[#f1e3d5] dark:placeholder:text-[#b59a87]"
               />
               <button
                 type="submit"
                 disabled={loading}
-                className="px-4 py-2 rounded-full bg-white/30 text-black dark:text-white font-semibold hover:bg-white/40 transition"
+                className="rounded-full bg-white/30 px-4 py-2 font-semibold text-black transition hover:bg-white/40 dark:bg-[#c97750] dark:text-[#1d120e] dark:hover:bg-[#de8960]"
               >
                 {loading ? "…" : "Send"}
               </button>
