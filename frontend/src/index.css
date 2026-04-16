@@ -210,36 +210,9 @@
   transform: scale(1.04);
 }
 
-<<<<<<< ours
-<<<<<<< ours
-<<<<<<< ours
 @keyframes footer-pill-drop {
   0% {
     opacity: 0;
-<<<<<<< ours
-    transform: translate3d(0, -130px, 0) scale(0.92) rotate(-7deg);
-  }
-  16% {
-    opacity: 1;
-    transform: translate3d(0, 10px, 0) scale(1.02) rotate(2deg);
-  }
-  24% {
-    transform: translate3d(0, -8px, 0) scale(0.99) rotate(-2deg);
-  }
-  32% {
-    transform: translate3d(0, 4px, 0) scale(1.01) rotate(1deg);
-  }
-  42%,
-=======
-@keyframes footer-float-drift {
-  0%,
->>>>>>> theirs
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(var(--footer-drift-x), calc(var(--footer-drift-y) * -1), 0) rotate(var(--footer-rotate));
-=======
     transform: translate3d(var(--drop-x, 0px), -220px, 0)
       scaleX(1.02)
       scaleY(0.82)
@@ -290,7 +263,6 @@
       scaleX(1)
       scaleY(1)
       rotate(var(--settle-rotate, 2deg));
->>>>>>> theirs
   }
 }
 
@@ -304,14 +276,10 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap;
-<<<<<<< ours
-  animation: footer-float-drift var(--footer-duration) ease-in-out infinite;
-=======
   transform-origin: center;
   will-change: transform, opacity;
   filter: drop-shadow(0 16px 28px rgba(196, 120, 78, calc(0.16 * var(--footer-shadow, 1))));
   animation: footer-pill-drop var(--footer-duration) cubic-bezier(0.22, 1, 0.36, 1) var(--footer-delay, 0s) infinite both;
->>>>>>> theirs
 }
 
 .footer-pill-soft {
@@ -425,10 +393,6 @@
   --footer-duration: 7.6s;
 }
 
-=======
->>>>>>> theirs
-=======
->>>>>>> theirs
 @keyframes reflect-hero-drift {
   0%,
   100% {
