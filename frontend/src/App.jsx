@@ -1,8 +1,8 @@
-import {createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import NewEntry from './components/layout/NewEntry';
 import ReflectView from './components/layout/ReflectView';
 import AppLayout from './components/layout/AppLayout';
-import { SignIn, SignUp} from '@clerk/clerk-react';
+import { SignIn, SignUp, AuthenticateWithRedirectCallback } from '@clerk/clerk-react';
 import Dashboard from './components/layout/Dashboard';
 import Home from './components/layout/Home';
 import Archives from './components/layout/Archives';
@@ -27,6 +27,11 @@ import Archives from './components/layout/Archives';
         {
           path:"/signin",
           element:<SignIn/>
+        },
+
+        {
+          path: "/sso-callback",
+          element: <AuthenticateWithRedirectCallback />
         },
 
         {
