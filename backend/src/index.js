@@ -1,13 +1,13 @@
 import express from "express";
-import reflectRoutes from '../routes/reflect.routes.js'
+import reflectRoutes from '../routes/reflect.routes.js';
 
 import dotenv from "dotenv";
 dotenv.config();
 
 import cors from "cors";
-import { clerkMiddleware } from "@clerk/express"; 
+import { clerkMiddleware } from "@clerk/express";
 import userRoutes from '../routes/user.routes.js';
-import entryRoutes from '../routes/entries.routes.js'
+import entryRoutes from '../routes/entries.routes.js';
 import uploadRoutes from "../routes/uploads.routes.js";
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(clerkMiddleware());
 app.use(
     cors({
-        origin:"http://localhost:5173",
+        origin:["http://localhost:5173", "https://mirror-journal.vercel.app"],
         credentials:true,
         methods:['GET', 'POST', 'DELETE', 'PUT'],
         allowedHeaders:['Content-Type', 'Authorization']
