@@ -1,5 +1,7 @@
+import { endpoints } from './apiEndpoints.js';
+
 export async function createEntryApi(payload, token){
-    const res = await fetch('http://localhost:3000/entries/createEntry', {
+    const res = await fetch(endpoints.createEntry, {
         method: "POST",
         headers: {
             "Content-Type" : "application/json",

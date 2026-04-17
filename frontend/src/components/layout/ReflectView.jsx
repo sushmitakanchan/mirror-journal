@@ -1,6 +1,7 @@
 import React , {useRef, useEffect, useMemo} from 'react'
 import DOMPurify from "dompurify";
 import { Link } from 'react-router-dom';
+import { endpoints } from '@/lib/apiEndpoints.js';
 import image from '../../assets/image.png'
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
@@ -74,7 +75,7 @@ const ReflectView = () => {
         setMessages((m)=>[...m,{from:"user", text: message}]);
         setLoading(true);
       try {
-        const res = await fetch(`http://localhost:3000/api/reflect/${id}`, {
+        const res = await fetch(endpoints.getReflectById(id), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message }),
