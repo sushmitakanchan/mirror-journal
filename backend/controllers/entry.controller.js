@@ -51,7 +51,7 @@ export const createEntry = async(req, res)=>{
     //     if(!entry) return res.status(404).json({error:"Entry not found"})
     try {
             
-            const model = process.env.OPENAI_MODEL || "gpt-3.5-turbo";
+            const model = process.env.OPENAI_MODEL || "gpt-5-nano";
             const response = await fetch("https://api.openai.com/v1/chat/completions", {
                 method:"POST",
                 headers: {
