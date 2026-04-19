@@ -12,7 +12,7 @@ const Header = () => {
     <header className='container mx-auto'>
     <nav className='py-2 px-4 flex justify-between items-center'>
     <Link href='/'>
-    <img src={logo} alt='logo' width={200} height={60} className='h-30 w-auto object-contain'/>
+    <img src={logo} alt='logo' className='h-10 sm:h-14 w-auto object-contain'/>
     </Link>
     <div className='flex items-center gap-4 text-black'>
       <SignedIn>
@@ -33,7 +33,7 @@ const Header = () => {
       <ModeToggle/>
       <SignedOut>
         <SignInButton forceRedirectUrl="/dashboard">
-          <Button variant="outline" className='mr-10 dark:bg-amber-100'>Login</Button>
+          <Button variant="outline" className='dark:bg-amber-100'>Login</Button>
         </SignInButton>
       </SignedOut>
 

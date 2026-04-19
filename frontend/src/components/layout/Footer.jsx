@@ -33,10 +33,10 @@ const Footer = () => {
 
   return (
     <footer className='mt-24 bg-[#1e1008] border-t border-[#3a1e0e]'>
-      <div className='mx-auto max-w-5xl px-8 pt-16 pb-8'>
+      <div className='mx-auto max-w-5xl px-4 sm:px-8 pt-12 sm:pt-16 pb-8'>
 
         {/* Top section */}
-        <div className='flex flex-col md:flex-row justify-between gap-24 mb-14'>
+        <div className='flex flex-col md:flex-row justify-between gap-10 md:gap-24 mb-10 md:mb-14'>
 
           {/* Brand */}
           <div className='flex flex-col gap-5 max-w-xs'>

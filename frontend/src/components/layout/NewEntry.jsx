@@ -114,7 +114,7 @@ const NewEntry = ({isEditMode = false}) => {
 
 
   return (
-    <div className="mx-50 dark:text-[#f1e3d5]">
+    <div className="px-4 sm:px-8 md:px-16 lg:px-24 dark:text-[#f1e3d5]">
       <div className="container py-4">
         <Link to="/dashboard" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e2b58f] dark:hover:text-[#f2c7a0]">
           ← Back to Dashboard
@@ -122,7 +122,7 @@ const NewEntry = ({isEditMode = false}) => {
       </div>
 
       <form className="space-y-2 mx-auto text-black dark:text-[#f1e3d5]" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-5xl md:text-6xl gradient-title">What's on your mind?</h1>
+        <h1 className="text-3xl sm:text-5xl md:text-6xl gradient-title">What's on your mind?</h1>
         {isLoading && <BarLoader color="orange" width={"100%"} />}
 
         <div className="space-y-2">
@@ -171,7 +171,7 @@ const NewEntry = ({isEditMode = false}) => {
         </div>
 
         {/* Editor area: use Controller for `content` so `field` is available */}
-        <div className="flex items-start mr-30 rounded-2xl bg-orange-100 p-4 text-black shadow-xl dark:bg-[linear-gradient(135deg,rgba(42,29,24,0.96),rgba(31,22,19,0.92))] dark:text-[#f1e3d5] dark:shadow-[0_20px_48px_rgba(7,4,3,0.42)] dark:ring-1 dark:ring-[#4b3126]">
+        <div className="flex items-start rounded-2xl bg-orange-100 p-3 sm:p-4 text-black shadow-xl dark:bg-[linear-gradient(135deg,rgba(42,29,24,0.96),rgba(31,22,19,0.92))] dark:text-[#f1e3d5] dark:shadow-[0_20px_48px_rgba(7,4,3,0.42)] dark:ring-1 dark:ring-[#4b3126]">
           <Controller
             name="content"
             control={control}
@@ -190,7 +190,7 @@ const NewEntry = ({isEditMode = false}) => {
 
         <div className="space-y-2 flex gap-2">
             
-            <Button variant='journal' type='submit' disabled={isDisabled} className='w-30'>{isEditMode ? "Update" : "Save"}</Button>
+            <Button variant='journal' type='submit' disabled={isDisabled} className='w-full sm:w-auto px-8'>{isEditMode ? "Update" : "Save"}</Button>
             {/* <Button variant='secondary'>Add to collection</Button> */}
             
         </div>
