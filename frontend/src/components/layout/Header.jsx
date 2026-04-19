@@ -12,7 +12,7 @@ const Header = () => {
     <header className='container mx-auto'>
     <nav className='py-2 px-4 flex justify-between items-center'>
     <Link href='/'>
-    <img src={logo} alt='logo' className='h-10 sm:h-14 w-auto object-contain'/>
+    <img src={logo} alt='logo' className='h-14 sm:h-20 w-auto object-contain'/>
     </Link>
     <div className='flex items-center gap-2 sm:gap-4 text-black'>
       <SignedIn>
