@@ -141,7 +141,7 @@ const Archives = () => {
         </Link>
       </div>
 
-      <h1 className="gradient-title text-4xl sm:text-5xl md:text-6xl">
+      <h1 className="gradient-title text-2xl sm:text-4xl md:text-5xl lg:text-6xl">
         Look back at your archives <Mails className="inline-block size-7 text-orange-500 sm:size-8" />
       </h1>
 
@@ -158,7 +158,7 @@ const Archives = () => {
                 >
                   <li className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-start lg:justify-between">
                     <div className="min-w-0 flex-1">
-                      <h1 className="text-2xl font-extrabold text-black sm:text-3xl dark:text-[#f3e6d6]">{entry.title}</h1>
+                      <h1 className="text-xl font-extrabold text-black sm:text-2xl dark:text-[#f3e6d6]">{entry.title}</h1>
                       <h6 className="mt-1 text-xs font-bold text-black dark:text-[#c7a895]">
                         {new Date(entry.updatedAt).toLocaleString('en-US', dateOptions)}
                       </h6>
@@ -204,13 +204,13 @@ const Archives = () => {
                         disabled={isDisabled}
                         className="rounded-lg p-1 transition hover:bg-orange-100 dark:hover:bg-[#35231c]"
                       >
-                        <SquarePen color="#cf6017" className="h-7 w-7 cursor-pointer" />
+                        <SquarePen color="#cf6017" className="h-5 w-5 sm:h-7 sm:w-7 cursor-pointer" />
                       </button>
                       <button
                         onClick={() => handleDelete(entry.id)}
                         className="rounded-lg p-1 transition hover:bg-orange-100 dark:hover:bg-[#35231c]"
                       >
-                        <Trash2 color="#cf6017" className="h-7 w-7 cursor-pointer" />
+                        <Trash2 color="#cf6017" className="h-5 w-5 sm:h-7 sm:w-7 cursor-pointer" />
                       </button>
                       <div className="flex items-center justify-center rounded-2xl">
                         <Button
@@ -229,7 +229,7 @@ const Archives = () => {
               ))}
 
               {entries.length > ENTRIES_PER_PAGE ? (
-                <div className="mt-2 flex flex-col items-center gap-3 rounded-2xl border border-orange-200/70 bg-white/60 px-4 py-4 shadow-sm sm:flex-row sm:justify-between dark:border-[#4c3227] dark:bg-[#241916]/85 dark:shadow-[0_14px_36px_rgba(8,4,3,0.32)]">
+                <div className="mt-2 flex flex-col items-center gap-3 rounded-2xl border border-orange-200/70 bg-white/60 px-3 py-3 sm:px-4 sm:py-4 shadow-sm sm:flex-row sm:justify-between dark:border-[#4c3227] dark:bg-[#241916]/85 dark:shadow-[0_14px_36px_rgba(8,4,3,0.32)]">
                   <p className="text-sm font-medium text-orange-900/75 dark:text-[#dfc1ab]">
                     Showing {(currentPage - 1) * ENTRIES_PER_PAGE + 1}-
                     {Math.min(currentPage * ENTRIES_PER_PAGE, entries.length)} of {entries.length} entries

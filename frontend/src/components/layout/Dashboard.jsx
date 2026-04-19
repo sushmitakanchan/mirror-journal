@@ -281,7 +281,7 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
 
   return (
     <div className="mt-2 flex w-full flex-col items-start pl-2 sm:pl-3">
-      <div className="relative h-[360px] w-[360px] max-w-full sm:h-[420px] sm:w-[420px]">
+      <div className="relative h-[300px] w-full max-w-full sm:h-[360px] sm:w-[360px] md:h-[360px] md:w-[360px]">
         {visibleCards.slice(0, 3).reverse().map((card, reverseIndex, arr) => {
           const layerIndex = arr.length - 1 - reverseIndex;
           const isFront = layerIndex === 0;
@@ -291,7 +291,7 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
               key={`${card.id}-${layerIndex}`}
               type="button"
               onClick={isFront ? onAdvance : undefined}
-              className={`absolute left-[50px] top-0 flex h-[360px] w-[360px] -translate-x-1/2 flex-col justify-between overflow-hidden rounded-[22px] border border-[#f2d1dc] bg-[linear-gradient(180deg,#fff5f8_0%,#ffe4ee_100%)] px-6 py-6 text-left shadow-[0_26px_44px_rgba(187,59,111,0.18)] transition duration-500 sm:h-[420px] sm:w-[420px] ${affirmationStackTransforms[layerIndex]} ${isFront && isAnimating ? 'affirmation-swipe-out' : ''} ${isFront ? 'cursor-pointer' : 'cursor-default'}`}
+              className={`absolute left-1/2 top-0 flex h-[300px] w-[min(340px,90vw)] -translate-x-1/2 flex-col justify-between overflow-hidden rounded-[22px] border border-[#f2d1dc] bg-[linear-gradient(180deg,#fff5f8_0%,#ffe4ee_100%)] px-4 py-4 text-left shadow-[0_26px_44px_rgba(187,59,111,0.18)] transition duration-500 sm:h-[360px] sm:w-[360px] sm:px-6 sm:py-6 ${affirmationStackTransforms[layerIndex]} ${isFront && isAnimating ? 'affirmation-swipe-out' : ''} ${isFront ? 'cursor-pointer' : 'cursor-default'}`}
               style={{ zIndex: 10 - layerIndex }}
             >
               <div className="flex min-h-0 flex-1 flex-col">
@@ -299,7 +299,7 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
                   Love notes
                 </p>
                 <div className="flex flex-1 items-center">
-                  <p className="mt-3 max-w-full whitespace-normal break-words pr-2 text-[26px] leading-[1.14] tracking-[-0.03em] text-[#ab3e73] sm:text-[31px]">
+                  <p className="mt-3 max-w-full whitespace-normal break-words pr-2 text-[18px] leading-[1.14] tracking-[-0.03em] text-[#ab3e73] sm:text-[26px] md:text-[31px]">
                     {card.text}
                   </p>
                 </div>
@@ -313,7 +313,7 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
         })}
       </div>
 
-      <div className="relative z-10 mt-5 flex w-[360px] items-center justify-center gap-2 sm:w-[420px]">
+      <div className="relative z-10 mt-5 flex w-full max-w-[360px] items-center justify-center gap-2">
         {deck.map((card, index) => (
           <button
             key={card.id}
@@ -338,7 +338,7 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500 dark:text-[#e1b18e]">Recent entries</p>
-          <h3 className="mt-3 text-2xl font-semibold text-orange-950 dark:text-[#f3e5d6]">Your latest reflections, in timeline form</h3>
+          <h3 className="mt-3 text-lg sm:text-2xl font-semibold text-orange-950 dark:text-[#f3e5d6]">Your latest reflections, in timeline form</h3>
         </div>
         <div className="rounded-[24px] bg-gradient-to-br from-orange-500 to-rose-500 p-4 text-white shadow-lg dark:from-[#b96643] dark:to-[#8d4b58]">
           <TrendingUp className="h-7 w-7" />
@@ -348,7 +348,7 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
       {recentEntriesByDate.length ? (
         <div className="mt-6 space-y-6">
           {recentEntriesByDate.map((group) => (
-            <div key={group.dateKey} className="grid gap-4 md:grid-cols-[88px_1fr] md:gap-5">
+            <div key={group.dateKey} className="grid gap-3 grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] md:gap-5">
               <div className="rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,239,225,0.95))] px-4 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:bg-[linear-gradient(180deg,rgba(61,42,34,0.95),rgba(40,28,23,0.98))] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                 <p className="text-2xl font-semibold leading-none text-[#5f240e] dark:text-[#f3dfc8]">{group.dayNumber}</p>
                 <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c06a40] dark:text-[#d8a67f]">
@@ -359,7 +359,7 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
 
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <h4 className="text-xl font-semibold text-[#5f240e] dark:text-[#f3e2d0]">{group.weekdayLabel}</h4>
+                  <h4 className="text-base sm:text-xl font-semibold text-[#5f240e] dark:text-[#f3e2d0]">{group.weekdayLabel}</h4>
                   <p className="text-sm text-[#bf7349] dark:text-[#cb9c80]">{group.entries.length} entr{group.entries.length === 1 ? 'y' : 'ies'}</p>
                 </div>
 
@@ -368,7 +368,7 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
                     key={entry.id}
                     type="button"
                     onClick={() => navigate(`/reflect/${entry.id}`, { state: { entry } })}
-                    className="w-full rounded-[24px] border border-white/70 bg-white/88 px-5 py-4 text-left shadow-[0_14px_32px_rgba(192,201,214,0.22)] transition hover:-translate-y-0.5 dark:border-[#4b3329] dark:bg-[#2a1d19] dark:shadow-[0_16px_34px_rgba(8,4,3,0.32)]"
+                    className="w-full rounded-[24px] border border-white/70 bg-white/88 px-3 py-3 sm:px-5 sm:py-4 text-left shadow-[0_14px_32px_rgba(192,201,214,0.22)] transition hover:-translate-y-0.5 dark:border-[#4b3329] dark:bg-[#2a1d19] dark:shadow-[0_16px_34px_rgba(8,4,3,0.32)]"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
@@ -431,7 +431,7 @@ const MiniCalendarPanel = ({
   const isSelected = (day) => day && ((draftStart && isSameDay(day, draftStart)) || (draftEnd && isSameDay(day, draftEnd)));
 
   return (
-    <div className="absolute right-0 top-14 z-30 w-[320px] rounded-[28px] border border-orange-200 bg-white/96 p-4 shadow-2xl backdrop-blur-xl dark:border-[#4b3128] dark:bg-[#261b18]/98 dark:shadow-[0_26px_58px_rgba(6,3,2,0.5)]">
+    <div className="absolute right-0 top-14 z-30 w-[min(320px,calc(100vw-2rem))] rounded-[28px] border border-orange-200 bg-white/96 p-4 shadow-2xl backdrop-blur-xl dark:border-[#4b3128] dark:bg-[#261b18]/98 dark:shadow-[0_26px_58px_rgba(6,3,2,0.5)]">
       <div className="flex items-center justify-between">
         <button
           type="button"
@@ -524,7 +524,7 @@ const MoodAnalyticsGraph = ({ entryCount, chartData }) => {
 
   return (
     <Card className="overflow-hidden rounded-[34px] border-[#ffb28d]/80 bg-[linear-gradient(135deg,rgba(255,253,240,0.96),rgba(255,235,212,0.94)_40%,rgba(255,197,167,0.92)_72%,rgba(255,166,193,0.9))] shadow-[0_26px_80px_rgba(255,128,78,0.22)] dark:border-[#5a3b2f] dark:bg-[linear-gradient(145deg,rgba(53,37,29,0.96),rgba(46,31,26,0.94)_42%,rgba(61,40,32,0.94)_74%,rgba(69,41,49,0.9))] dark:shadow-[0_28px_72px_rgba(5,3,2,0.46)]">
-      <CardContent className="px-6 py-6 sm:px-7 sm:py-7">
+      <CardContent className="px-4 py-4 sm:px-6 sm:py-6 md:px-7 md:py-7">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.28em] text-[#ff7a45] shadow-sm dark:bg-[#3d2b25] dark:text-[#efb78f]">
@@ -532,7 +532,7 @@ const MoodAnalyticsGraph = ({ entryCount, chartData }) => {
               Mood analytics
             </div>
             <div>
-              <h2 className="text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl dark:text-[#f2e4d6]">
+              <h2 className="text-xl font-semibold tracking-tight text-[#5f240e] sm:text-3xl lg:text-4xl dark:text-[#f2e4d6]">
                 Your emotional rhythm
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-[#7b3a21]/80 sm:text-base dark:text-[#d7bba8]/85">
@@ -684,7 +684,7 @@ const SegmentedMoodMeter = ({ averageMood, todayEnergy }) => {
 
             <div className="-mt-[118px] flex flex-col items-center text-center">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/55 dark:text-[#d4b8a3]/55">Mood meter</p>
-              <p className="mt-2 text-5xl font-semibold text-white">
+              <p className="mt-2 text-3xl font-semibold text-white sm:text-5xl">
                 {averageMood == null ? '—' : `${Math.round(fillPercent)}%`}
               </p>
               <p className="mt-3 text-sm font-medium text-[#ffd98b] dark:text-[#f2c89d]">
@@ -985,10 +985,10 @@ const Dashboard = () => {
   const greeting = getDashboardGreeting(greetingName);
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mb-6 rounded-[28px] border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,251,245,0.98),rgba(255,236,217,0.96)_55%,rgba(255,222,208,0.92))] px-6 py-5 shadow-[0_18px_45px_rgba(255,142,90,0.14)] dark:border-[#50352a] dark:bg-[linear-gradient(145deg,rgba(50,34,28,0.96),rgba(40,28,23,0.94)_55%,rgba(57,37,32,0.9))] dark:shadow-[0_22px_52px_rgba(7,4,3,0.42)]">
+    <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:py-8 sm:px-6 lg:px-8">
+      <div className="mb-6 rounded-[28px] border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,251,245,0.98),rgba(255,236,217,0.96)_55%,rgba(255,222,208,0.92))] px-4 py-4 sm:px-6 sm:py-5 shadow-[0_18px_45px_rgba(255,142,90,0.14)] dark:border-[#50352a] dark:bg-[linear-gradient(145deg,rgba(50,34,28,0.96),rgba(40,28,23,0.94)_55%,rgba(57,37,32,0.9))] dark:shadow-[0_22px_52px_rgba(7,4,3,0.42)]">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500 dark:text-[#e3b48d]">Welcome back</p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-[#5f240e] sm:text-4xl dark:text-[#f3e5d7]">
+        <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#5f240e] sm:text-3xl lg:text-4xl dark:text-[#f3e5d7]">
           {greeting}
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-[#8c5235] sm:text-base dark:text-[#cfb29d]">
@@ -1015,7 +1015,7 @@ const Dashboard = () => {
             <CardHeader>
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div className="space-y-2">
-                  <CardTitle className="text-3xl font-semibold tracking-tight text-orange-950 dark:text-[#f3e5d7]">
+                  <CardTitle className="text-xl font-semibold tracking-tight text-orange-950 sm:text-2xl lg:text-3xl dark:text-[#f3e5d7]">
                     Emotional Weather
                   </CardTitle>
                   <CardDescription className="text-sm text-orange-900/70 dark:text-[#cfb29e]">
@@ -1113,11 +1113,11 @@ const Dashboard = () => {
         </div>
 
         <div className="space-y-5">
-          <div className="flex min-h-[400px] flex-col items-start justify-center px-0 py-2 sm:min-h-[460px]">
+          <div className="flex min-h-0 sm:min-h-[400px] flex-col items-start justify-center px-0 py-2">
             <img
               src={affirmationEnvelope}
               alt="Decorated affirmation envelope"
-              className="sticker-float sticker-wobble h-auto w-full max-w-[390px] drop-shadow-[0_32px_46px_rgba(163,87,45,0.3)] sm:max-w-[460px]"
+              className="sticker-float sticker-wobble h-auto w-full max-w-full drop-shadow-[0_32px_46px_rgba(163,87,45,0.3)] sm:max-w-[390px]"
             />
             <AffirmationSwipeStack
               deck={dashboardData.affirmationDeck}
