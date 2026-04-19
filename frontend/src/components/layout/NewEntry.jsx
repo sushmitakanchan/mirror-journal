@@ -42,7 +42,7 @@ const NewEntry = ({isEditMode = false}) => {
     },
   });
 
-  const isLoading = false;
+  const isLoading = isDisabled;
 
   // watch mood -> compute moodPrompt
   const selectedMoodId = watch("mood");
@@ -123,7 +123,6 @@ const NewEntry = ({isEditMode = false}) => {
 
       <form className="space-y-2 mx-auto text-black dark:text-[#f1e3d5]" onSubmit={handleSubmit(onSubmit)}>
         <h1 className="text-2xl sm:text-4xl md:text-5xl gradient-title">What's on your mind?</h1>
-        {isLoading && <BarLoader color="orange" width={"100%"} />}
 
         <div className="space-y-2">
           <label className="text-medium font-medium text-black dark:text-[#eddcc9]">Title:</label>
@@ -188,8 +187,9 @@ const NewEntry = ({isEditMode = false}) => {
           />
         </div>
 
+        {isLoading && <BarLoader color="orange" width={"100%"} />}
         <div className="space-y-2 flex gap-2">
-            
+
             <Button variant='journal' type='submit' disabled={isDisabled} className='w-full sm:w-auto px-8'>{isEditMode ? "Update" : "Save"}</Button>
             {/* <Button variant='secondary'>Add to collection</Button> */}
             
