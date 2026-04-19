@@ -131,7 +131,7 @@ const Archives = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6 md:px-7 lg:px-8">
       <div className="py-4">
         <Link
           to="/dashboard"
@@ -156,7 +156,7 @@ const Archives = () => {
                   key={entry.id}
                   className="w-full rounded-2xl border border-pink-300 bg-gradient-to-br from-white/100 to-white/50 p-4 shadow-lg backdrop-blur-md sm:p-6 dark:border-[#52362d] dark:bg-[linear-gradient(135deg,rgba(42,29,24,0.96),rgba(31,22,19,0.92))] dark:shadow-[0_20px_48px_rgba(7,4,3,0.42)]"
                 >
-                  <li className="flex flex-col gap-5 sm:gap-6 lg:flex-row lg:items-start lg:justify-between">
+                  <li className="flex flex-col gap-5 sm:gap-6 md:flex-row md:items-start md:justify-between">
                     <div className="min-w-0 flex-1">
                       <h1 className="text-xl font-extrabold text-black sm:text-2xl dark:text-[#f3e6d6]">{entry.title}</h1>
                       <h6 className="mt-1 text-xs font-bold text-black dark:text-[#c7a895]">

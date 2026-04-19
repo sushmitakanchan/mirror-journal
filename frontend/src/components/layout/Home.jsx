@@ -37,15 +37,15 @@ const Home = () => {
   },
 ];
   return (
-  <div className='relative container mx-auto px-4 pt-16 pb-16'>
-  <div className='max w-6xl mx-auto text-center space-y-8'>
-    <h1 className='text-4xl sm:text-5xl md:text-7xl lg:text-8xl mb-6 gradient-title'>Step into your mind. <span className='block whitespace-nowrap'>Leave your thoughts here.</span></h1>
+  <div className='relative container mx-auto px-4 pt-16 pb-16 overflow-x-hidden'>
+  <div className='max-w-6xl mx-auto text-center space-y-8'>
+    <h1 className='text-3xl sm:text-4xl md:text-6xl lg:text-8xl mb-6 gradient-title'>Step into your mind. <span className='block'>Leave your thoughts here.</span></h1>
     <p className='text-base sm:text-lg md:text-xl text-orange-800 dark:text-[#f0dfce] mb-8'>
       Capture your journey, let AI reflect your patterns, and uncover the story inside you.
     </p>
     <div className='relative'>
       <div className='absolute inset-0 bg-gradient-to-t from-orange-50 via-transparent to-transparent pointer-events-none z-10 dark:from-[#261b18] dark:via-transparent dark:to-transparent'/>
-      <div className='bg-white dark:bg-[#1d1411] rounded-2xl p-4 max-full mx-auto'>
+      <div className='bg-white dark:bg-[#1d1411] rounded-2xl p-4 max-w-full mx-auto'>
         <div className='border-b border-orange-100 dark:border-[#4b3329] pb-4 mb-4 flex items-center justify-between'>
           <div className='flex items-center gap-2'>
             <Calendar className='h-5 w-5 text-orange-600 dark:text-[#e0b38f]'/>
@@ -83,7 +83,7 @@ const Home = () => {
       </Link>
     </div>
   </div>
-  <section id='features' className='mt-24 grid md:grid-cols-3 lg:grid-cols-4 gap-8'>
+  <section id='features' className='mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
     {features.map((feature)=>(
       <Card key={feature.title} className='shadow-lg dark:bg-[#1d1411] dark:border-[#4b3329]'>
         <CardContent className='p-3'>
@@ -96,7 +96,7 @@ const Home = () => {
       </Card>
     ))}
   </section>
-  <div className='space-y-12 sm:space-y-24 mt-12 sm:mt-24'>
+  <div className='space-y-10 sm:space-y-16 md:space-y-24 mt-10 sm:mt-16 md:mt-24'>
     <div className='grid md:grid-cols-2 gap-6 md:gap-12'>
       <div className='space-y-6'>
         <div className='h-12 w-12 bg-orange-200 dark:bg-[#4b3329] rounded-full flex items-center justify-center'>

@@ -114,7 +114,7 @@ const NewEntry = ({isEditMode = false}) => {
 
 
   return (
-    <div className="px-4 sm:px-8 md:px-16 lg:px-24 dark:text-[#f1e3d5]">
+    <div className="px-4 sm:px-6 md:px-10 lg:px-16 dark:text-[#f1e3d5]">
       <div className="container py-4">
         <Link to="/dashboard" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e2b58f] dark:hover:text-[#f2c7a0]">
           ← Back to Dashboard
@@ -122,7 +122,7 @@ const NewEntry = ({isEditMode = false}) => {
       </div>
 
       <form className="space-y-2 mx-auto text-black dark:text-[#f1e3d5]" onSubmit={handleSubmit(onSubmit)}>
-        <h1 className="text-3xl sm:text-5xl md:text-6xl gradient-title">What's on your mind?</h1>
+        <h1 className="text-2xl sm:text-4xl md:text-5xl gradient-title">What's on your mind?</h1>
         {isLoading && <BarLoader color="orange" width={"100%"} />}
 
         <div className="space-y-2">
@@ -130,7 +130,7 @@ const NewEntry = ({isEditMode = false}) => {
           <Input
             {...register("title")}
             placeholder="Give your entry a title..."
-            className={`px-5 md:text-md text-black dark:text-white ${errors.title ? "border-red-500" : ""}`}
+            className={`px-5 md:text-base text-black dark:text-white ${errors.title ? "border-red-500" : ""}`}
           />
           {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
         </div>

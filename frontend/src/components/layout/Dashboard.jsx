@@ -280,8 +280,8 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
   if (!visibleCards.length) return null;
 
   return (
-    <div className="mt-2 flex w-full flex-col items-start pl-2 sm:pl-3">
-      <div className="relative h-[300px] w-full max-w-full sm:h-[360px] sm:w-[360px] md:h-[360px] md:w-[360px]">
+    <div className="mt-2 flex w-full flex-col items-center pl-0">
+      <div className="relative h-[300px] w-full sm:h-[360px] sm:max-w-[360px] md:h-[360px]">
         {visibleCards.slice(0, 3).reverse().map((card, reverseIndex, arr) => {
           const layerIndex = arr.length - 1 - reverseIndex;
           const isFront = layerIndex === 0;
@@ -313,7 +313,7 @@ const AffirmationSwipeStack = ({ deck, activeIndex, isAnimating, onAdvance }) =>
         })}
       </div>
 
-      <div className="relative z-10 mt-5 flex w-full max-w-[360px] items-center justify-center gap-2">
+      <div className="relative z-10 mt-5 flex w-full max-w-full sm:max-w-[360px] items-center justify-center gap-2">
         {deck.map((card, index) => (
           <button
             key={card.id}
@@ -348,7 +348,7 @@ const RecentEntriesPanel = ({ recentEntriesByDate, navigate }) => (
       {recentEntriesByDate.length ? (
         <div className="mt-6 space-y-6">
           {recentEntriesByDate.map((group) => (
-            <div key={group.dateKey} className="grid gap-3 grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] md:gap-5">
+            <div key={group.dateKey} className="grid gap-3 grid-cols-[64px_1fr] sm:grid-cols-[72px_1fr] md:grid-cols-[88px_1fr] md:gap-5">
               <div className="rounded-[22px] bg-[linear-gradient(180deg,rgba(255,255,255,0.7),rgba(255,239,225,0.95))] px-4 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] dark:bg-[linear-gradient(180deg,rgba(61,42,34,0.95),rgba(40,28,23,0.98))] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                 <p className="text-2xl font-semibold leading-none text-[#5f240e] dark:text-[#f3dfc8]">{group.dayNumber}</p>
                 <p className="mt-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#c06a40] dark:text-[#d8a67f]">
@@ -985,7 +985,7 @@ const Dashboard = () => {
   const greeting = getDashboardGreeting(greetingName);
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-7xl px-4 py-4 sm:py-6 sm:px-6 md:px-7 md:py-8 lg:px-8">
       <div className="mb-6 rounded-[28px] border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,251,245,0.98),rgba(255,236,217,0.96)_55%,rgba(255,222,208,0.92))] px-4 py-4 sm:px-6 sm:py-5 shadow-[0_18px_45px_rgba(255,142,90,0.14)] dark:border-[#50352a] dark:bg-[linear-gradient(145deg,rgba(50,34,28,0.96),rgba(40,28,23,0.94)_55%,rgba(57,37,32,0.9))] dark:shadow-[0_22px_52px_rgba(7,4,3,0.42)]">
         <p className="text-xs font-semibold uppercase tracking-[0.24em] text-orange-500 dark:text-[#e3b48d]">Welcome back</p>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[#5f240e] sm:text-3xl lg:text-4xl dark:text-[#f3e5d7]">

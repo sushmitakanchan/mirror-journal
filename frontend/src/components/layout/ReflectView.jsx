@@ -90,12 +90,12 @@ const ReflectView = () => {
     }
   return (
     <div>
-      <div className="px-4 sm:px-8 md:px-16">
+      <div className="px-4 sm:px-6">
               <Link to="/archives" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e0b38f] dark:hover:text-[#f3c69c]">
                 ← Back to Archives
               </Link>
     </div>
-    <div className="min-h-screen flex flex-col md:flex-row mx-2 sm:mx-6 md:mx-10 my-6 gap-6">
+    <div className="flex flex-col md:flex-row md:min-h-screen mx-2 sm:mx-6 md:mx-10 my-6 gap-6">
       {/* LEFT: Image side — hidden on mobile */}
       <div className="hidden md:block md:w-2/5 w-full h-[80vh] md:h-[90vh] rounded-3xl overflow-hidden shadow-xl ml-0 md:ml-20">
         {/* Use <img> for precise focal control */}
@@ -105,7 +105,7 @@ const ReflectView = () => {
           className="reflect-hero-image w-full h-4/4 object-[30%_50%]" 
         />
       </div>
-      <div className="w-full md:w-3/4 h-[85vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden dark:shadow-[0_24px_60px_rgba(5,3,2,0.45)]">
+      <div className="w-full md:w-3/4 h-[80vh] sm:h-[85vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden dark:shadow-[0_24px_60px_rgba(5,3,2,0.45)]">
         {/* Glass overlay panel */}
         <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col">
           {/* Frosted glass panel itself */}

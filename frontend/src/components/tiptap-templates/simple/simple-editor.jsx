@@ -338,14 +338,7 @@ export function SimpleEditor({
     <div className="simple-editor-wrapper">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
-          ref={toolbarRef}
-          style={{
-            ...(isMobile
-              ? {
-                  bottom: `calc(100% - ${height - rect.y}px)`,
-                }
-              : {}),
-          }}>
+          ref={toolbarRef}>
           {mobileView === "main" ? (
             <MainToolbarContent
               onHighlighterClick={() => setMobileView("highlighter")}

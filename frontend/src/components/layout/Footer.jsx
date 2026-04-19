@@ -36,14 +36,14 @@ const Footer = () => {
       <div className='mx-auto max-w-5xl px-4 sm:px-8 pt-12 sm:pt-16 pb-8'>
 
         {/* Top section */}
-        <div className='flex flex-col md:flex-row justify-between gap-10 md:gap-24 mb-10 md:mb-14'>
+        <div className='flex flex-col md:flex-row justify-between gap-8 sm:gap-12 md:gap-20 mb-10 md:mb-14'>
 
           {/* Brand */}
           <div className='flex flex-col gap-5 max-w-xs'>
             <div className='flex items-center gap-2.5'>
               <div className='relative'>
                 <div className='absolute inset-2 rounded-xl bg-orange-400/30 blur-md' />
-                <img src={logo} alt='Mirror Journal' className='relative h-20 w-20 rounded-xl' />
+                <img src={logo} alt='Mirror Journal' className='relative h-14 w-14 sm:h-20 sm:w-20 rounded-xl' />
               </div>
               <span className='gradient-title-dark text-xl pb-0'>
                 Mirror Journal
@@ -80,9 +80,9 @@ const Footer = () => {
               </p>
             </div>
 
-            <div className='rounded-2xl border border-[#3a1e0e] bg-[#2a1208]/80 px-5 py-5'>
+            <div className='rounded-2xl border border-[#3a1e0e] bg-[#2a1208]/80 px-4 py-4 sm:px-5 sm:py-5'>
               <p
-                className='text-base font-medium leading-relaxed text-[#f3e5d6] min-h-[4.5rem]'
+                className='text-base font-medium leading-relaxed text-[#f3e5d6] min-h-[3.5rem] sm:min-h-[4.5rem]'
                 style={{
                   opacity: visible ? 1 : 0,
                   transform: visible ? 'translateY(0)' : 'translateY(6px)',

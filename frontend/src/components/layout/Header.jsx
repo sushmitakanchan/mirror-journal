@@ -14,7 +14,7 @@ const Header = () => {
     <Link href='/'>
     <img src={logo} alt='logo' className='h-10 sm:h-14 w-auto object-contain'/>
     </Link>
-    <div className='flex items-center gap-4 text-black'>
+    <div className='flex items-center gap-2 sm:gap-4 text-black'>
       <SignedIn>
       {/* <Link to='/dashboard#collections'>
       <Button variant="white" className="flex items-center gap-2">
