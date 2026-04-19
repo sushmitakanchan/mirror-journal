@@ -1,8 +1,8 @@
-import React , {useRef, useEffect, useMemo} from 'react'
+import { useRef, useEffect, useMemo } from 'react';
 import DOMPurify from "dompurify";
 import { Link } from 'react-router-dom';
 import { endpoints } from '@/lib/apiEndpoints.js';
-import image from '../../assets/image.png'
+import image from '../../assets/image.png';
 import { useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 
@@ -90,76 +90,75 @@ const ReflectView = () => {
     }
   return (
     <div>
-      <div className="px-4 sm:px-6">
-              <Link to="/archives" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e0b38f] dark:hover:text-[#f3c69c]">
-                ← Back to Archives
-              </Link>
-    </div>
-    <div className="flex flex-col md:flex-row md:min-h-screen mx-2 sm:mx-6 md:mx-10 my-6 gap-6">
-      {/* LEFT: Image side — hidden on mobile */}
-      <div className="hidden md:block md:w-2/5 w-full h-[80vh] md:h-[90vh] rounded-3xl overflow-hidden shadow-xl ml-0 md:ml-20">
-        {/* Use <img> for precise focal control */}
-        <img
-          src={image}
-          alt="Decorative"
-          className="reflect-hero-image w-full h-4/4 object-[30%_50%]" 
-        />
+      <div className="mx-2 sm:mx-6 md:mx-10 md:pl-20">
+        <Link to="/archives" className="text-md cursor-pointer text-orange-600 hover:text-orange-700 dark:text-[#e0b38f] dark:hover:text-[#f3c69c]">
+          ← Back to Archives
+        </Link>
       </div>
-      <div className="w-full md:w-3/4 h-[80vh] sm:h-[85vh] md:h-[90vh] rounded-3xl shadow-lg relative overflow-hidden dark:shadow-[0_24px_60px_rgba(5,3,2,0.45)]">
-        {/* Glass overlay panel */}
-        <div className="absolute inset-0 p-3 sm:p-4 md:p-6 flex flex-col">
-          {/* Frosted glass panel itself */}
-          <div className="relative z-10 flex flex-1 flex-col rounded-2xl border border-white/10 bg-white/10 p-3 sm:p-4 md:p-6 text-black shadow-inner backdrop-blur-sm dark:border-[#4b3229] dark:bg-[linear-gradient(180deg,rgba(42,29,24,0.82),rgba(30,21,18,0.9))] dark:text-[#f1e3d5]">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-4">
+
+      <div className="flex flex-col md:flex-row mx-2 sm:mx-6 md:mx-10 my-6 gap-6" style={{ height: 'calc(100vh - 120px)' }}>
+        {/* LEFT: Image side — hidden on mobile */}
+        <div className="hidden md:flex md:w-2/5 rounded-3xl overflow-hidden shadow-xl ml-0 md:ml-20">
+          <img
+            src={image}
+            alt="Decorative"
+            className="reflect-hero-image w-full h-full object-cover object-[30%_50%]"
+          />
+        </div>
+
+        {/* RIGHT: Chat panel — flex-1 so it fills remaining height on all screen sizes */}
+        <div className="flex-1 min-h-0 rounded-3xl shadow-lg relative flex flex-col overflow-hidden dark:shadow-[0_24px_60px_rgba(5,3,2,0.45)]">
+          {/* Decorative gradient — purely visual, behind everything */}
+          <div className="absolute -left-10 -top-10 w-72 h-72 rounded-full bg-gradient-to-br from-pink-400/30 to-orange-300/20 blur-3xl pointer-events-none z-0" />
+
+          {/* Glass panel — fills the container and owns the flex layout */}
+          <div className="relative z-10 flex flex-1 flex-col min-h-0 rounded-3xl border border-white/10 bg-white/10 p-3 sm:p-4 md:p-6 text-black shadow-inner backdrop-blur-sm dark:border-[#4b3229] dark:bg-[linear-gradient(180deg,rgba(42,29,24,0.82),rgba(30,21,18,0.9))] dark:text-[#f1e3d5]">
+
+            {/* Header — fixed height, never shrinks */}
+            <div className="flex-shrink-0 flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-white/30 flex items-center justify-center text-lg dark:bg-[#5a3a2d] dark:text-[#f7e4d2]">AI</div>
                 <div>
-                  <div className= "text-black dark:text-[#f4e7d7] font-semibold">Reflect Chat</div>
+                  <div className="text-black dark:text-[#f4e7d7] font-semibold">Reflect Chat</div>
                   <div className="text-black dark:text-[#cfb4a1] text-sm">Your private assistant</div>
                 </div>
               </div>
               <div className="text-sm text-orange-600 dark:text-[#efbd97]">Online</div>
             </div>
 
-            {/* Messages area */}
-            <div ref={scrollRef} className="flex-1 overflow-auto mb-4 space-y-3 pr-2">
-            {messages.map((m, i) => {
-              const user = m.from === "user";
-              const base = "max-w-[80%] rounded-xl p-3";
-              const cls = user
-                ? `${base} ml-auto bg-amber-100 dark:bg-[#4f3426] dark:text-[#f8e6d5]`
-                : `${base} bg-white/80 dark:bg-[#2d1f1b] dark:text-[#f1e3d5]`;
-              return (
-                <div key={i} className={cls}>
-                  {m.html ? (
-                    <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(m.html) }} />
-                  ) : (
-                    <div>{m.text}</div>
-                  )}
+            {/* Messages — grows, shrinks, and scrolls */}
+            <div ref={scrollRef} className="flex-1 min-h-0 overflow-y-auto mb-4 space-y-3 pr-2">
+              {messages.map((m, i) => {
+                const user = m.from === "user";
+                const base = "max-w-[80%] rounded-xl p-3 break-words";
+                const cls = user
+                  ? `${base} ml-auto bg-amber-100 dark:bg-[#4f3426] dark:text-[#f8e6d5]`
+                  : `${base} bg-white/80 dark:bg-[#2d1f1b] dark:text-[#f1e3d5]`;
+                return (
+                  <div key={i} className={cls}>
+                    {m.html ? (
+                      <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(m.html) }} />
+                    ) : (
+                      <div>{m.text}</div>
+                    )}
+                  </div>
+                );
+              })}
+              {loading && (
+                <div className="max-w-[80%] rounded-xl bg-white/10 p-3 text-black dark:bg-[#35251f] dark:text-[#f1e3d5]">
+                  Reflecting...
                 </div>
-              )
-            })}
-            {loading && (
-            <div className="max-w-[80%] rounded-xl bg-white/10 p-3 text-black dark:bg-[#35251f] dark:text-[#f1e3d5]">
-            Reflecting...
+              )}
             </div>
-            )}
 
-            {/* {followUpReply  && !loading && (
-            <div className="max-w-[80%] bg-white/80 text-black rounded-xl p-3">
-            {followUpReply }
-            </div>
-            )} */}
-          </div>
-            {/* Input area */}
-            <form onSubmit={handleReflect} className="mt-2 flex items-center gap-3">
+            {/* Input — fixed at bottom, never shrinks */}
+            <form onSubmit={handleReflect} className="flex-shrink-0 flex items-center gap-3">
               <input
                 type="text"
                 value={input}
-                onChange={(e)=>setInput(e.target.value)}
+                onChange={(e) => setInput(e.target.value)}
                 placeholder="Type a message..."
-                className="flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-black outline placeholder-black/60 focus:border-white/20 dark:border-[#4d3429] dark:bg-[#241916] dark:text-[#f1e3d5] dark:placeholder:text-[#b59a87]"
+                className="flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-black outline-none placeholder-black/60 focus:border-white/20 dark:border-[#4d3429] dark:bg-[#241916] dark:text-[#f1e3d5] dark:placeholder:text-[#b59a87]"
               />
               <button
                 type="submit"
@@ -170,13 +169,9 @@ const ReflectView = () => {
               </button>
             </form>
           </div>
-
-          {/* Optional decorative gradient behind the panel to enhance glass look */}
-          <div className="absolute -left-10 -top-10 w-72 h-72 rounded-full bg-gradient-to-br from-pink-400/30 to-orange-300/20 blur-3xl pointer-events-none"></div>
         </div>
       </div>
-</div>
-      </div>
+    </div>
   )
 }
 
